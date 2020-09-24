@@ -2,11 +2,14 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Gui extends JFrame {
     JPanel masterPane;
 
-    public Gui(String title) throws HeadlessException {
+    final int nbFloor = 6;
+
+    public Gui(String title) {
         super(title);
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +61,7 @@ public class Gui extends JFrame {
         constraints.gridwidth = 2;
         constraints.ipady = 100;
         constraints.ipadx = 100;
-        masterPane.add(new GuiElevator(), constraints);
+        masterPane.add(new GuiElevator(nbFloor), constraints);
 
         this.add(masterPane);
     }

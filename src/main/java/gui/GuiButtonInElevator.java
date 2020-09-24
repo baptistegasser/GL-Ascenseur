@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class GuiButtonInElevator extends JPanel {
 
+    //A mettre dans un liste de taille nbEtage TODO
+
     Button button1 = new Button("1");
     Button button2 = new Button("2");
     Button button3 = new Button("3");
