@@ -58,7 +58,7 @@ public class Gui extends JFrame {
         constraints.gridwidth = 2;
         constraints.ipady = 100;
         constraints.ipadx = 100;
-        masterPane.add(new GuiElevator(new BorderLayout()), constraints);
+        masterPane.add(new GuiElevator(), constraints);
 
         this.add(masterPane);
     }
