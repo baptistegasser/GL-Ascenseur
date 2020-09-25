@@ -2,28 +2,30 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GuiButtonInElevator extends JPanel {
 
-    //A mettre dans un liste de taille nbEtage TODO
-
-    Button button1 = new Button("1");
-    Button button2 = new Button("2");
-    Button button3 = new Button("3");
-    Button button4 = new Button("4");
-    Button button5 = new Button("5");
-    Button button6 = new Button("6");
-
-    public GuiButtonInElevator(LayoutManager layout) {
+    public GuiButtonInElevator(LayoutManager layout, int nbFloor) {
         super(layout);
 
-        this.add(button1);
-        this.add(button2);
-        this.add(button3);
-        this.add(button4);
-        this.add(button5);
-        this.add(button6);
+        for (int i =0; i<nbFloor; i++) {
 
-        //Ajouté le fonctionnement des boutons TODO
+            JButton button = new JButton();
+
+            int finalI = i;
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (finalI == 0)  System.out.println("Go au RDC");
+                    else System.out.println("Go a l'étage : "+(finalI +1));
+                }
+            });
+
+            if (i == 0) button.setText("RDC");
+            else button.setText(""+(i+1));
+            this.add(button);
+        }
     }
 }

@@ -9,9 +9,7 @@ public class GuiStatElevator extends JPanel {
     public GuiStatElevator(LayoutManager layout) {
         super(layout);
 
-        label = new JLabel("État de l'ascenceur : ");
-
-        //Ajouté les états de l'ascenceur TODO
+        label = new JLabel("État de l'ascenceur : Arrêt");
 
         this.add(label);
     }

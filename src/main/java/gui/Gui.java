@@ -50,7 +50,7 @@ public class Gui extends JFrame {
         constraints.insets = new Insets(0,150,20,0);
         constraints.ipady = 175;
         constraints.ipadx = 175;
-        masterPane.add(new GuiButtonInElevator(new GridLayout(4,2)), constraints);
+        masterPane.add(new GuiButtonInElevator(new GridLayout(4,2), nbFloor), constraints);
 
 
         constraints.gridx = 0;
