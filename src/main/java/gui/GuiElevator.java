@@ -4,11 +4,9 @@ import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -33,6 +31,7 @@ public class GuiElevator extends JPanel {
         // Bouton pour appel vers le haut
         for (int i =0; i<nbFloor-1; i++) {
             JPanel paneButton = new JPanel();
+            paneButton.setLayout(new BoxLayout(paneButton, BoxLayout.Y_AXIS));
 
             URL url = Utils.getResource("up-arrow.png");
 
@@ -53,18 +52,25 @@ public class GuiElevator extends JPanel {
                 }
             });
 
-            paneButton.add(button);
-            paneButton.setBorder(new EmptyBorder(0,45,0,0));
+            JLabel label;
+            if (i == 0) label = new JLabel(" RDC");
+            else label = new JLabel("   "+i);
 
-            panelTop.setBorder(new EmptyBorder(0,0,0,135));
+            paneButton.add(button);
+            paneButton.add(label);
+            paneButton.setBorder(new EmptyBorder(0,100,0,0));
+
+            panelTop.setBorder(new EmptyBorder(0,0,0,235));
             panelTop.add(paneButton);
         }
 
         //Bouton pour ppel vers le bas
         for (int i =0; i<nbFloor-1; i++) {
             JPanel paneButton = new JPanel();
+            paneButton.setLayout(new BoxLayout(paneButton, BoxLayout.Y_AXIS));
 
             URL url = Utils.getResource("down-arrow.png");
+
 
             ImageIcon imageIcon = new ImageIcon(url);
             Image image = imageIcon.getImage();
@@ -82,17 +88,22 @@ public class GuiElevator extends JPanel {
                 }
             });
 
-            paneButton.setBorder(new EmptyBorder(0,0,0,45));
-            paneButton.add(button);
+            JLabel label = new JLabel("   "+(i+1));
 
-            panelBottom.setBorder(new EmptyBorder(0,135,0,0));
+            paneButton.add(label);
+            paneButton.add(button);
+            paneButton.setBorder(new EmptyBorder(0,0,0,100)); // 50, 150
+
+
+            panelBottom.setBorder(new EmptyBorder(0,235,0,0)); // 135, 350
             panelBottom.add(paneButton);
         }
 
+
         JProgressBar progressBar = new JProgressBar(0,100);
-        progressBar.setMaximum(nbFloor*10);
+        progressBar.setMaximum((nbFloor-1)*10);
         progressBar.setPreferredSize(new Dimension(500, 20));
-        progressBar.setValue(50);
+        progressBar.setValue(30);
         progressBar.setStringPainted(true);
 
         panelCenter.add(progressBar);
