@@ -8,6 +8,7 @@ public class Gui extends JFrame {
     JPanel masterPane;
 
     final int nbFloor = 6;
+    public static boolean isUrgency = false;
 
     public Gui(String title) throws IOException {
         super(title);

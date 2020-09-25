@@ -47,6 +47,8 @@ public class GuiElevator extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if (Gui.isUrgency) return;
+
                     if (finalI == 0) System.out.println("Appel vers le haut du RDC");
                     else System.out.println("Appel vers le haut de l'étage : "+finalI);
                 }
@@ -84,6 +86,8 @@ public class GuiElevator extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if (Gui.isUrgency) return;
+
                     System.out.println("Appel vers le bas de l'étage : "+(finalI+1));
                 }
             });

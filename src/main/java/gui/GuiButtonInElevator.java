@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class GuiButtonInElevator extends JPanel {
+    Popup popup;
 
     public GuiButtonInElevator(LayoutManager layout, int nbFloor) throws IOException {
         super(layout);
@@ -22,6 +23,8 @@ public class GuiButtonInElevator extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if (Gui.isUrgency) return;
+
                     if (finalI == 0)  System.out.println("Go au RDC");
                     else System.out.println("Go a l'étage : "+(finalI));
                 }
@@ -39,11 +42,40 @@ public class GuiButtonInElevator extends JPanel {
         Image newimg = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
 
+        JFrame popFrame = new JFrame("Urgence");
+        popFrame.setSize(300, 250);
+        popFrame.setResizable(false);
+        popFrame.setLocationRelativeTo(null);
+
+        PopupFactory pf = new PopupFactory();
+
+        JPanel popPane = new JPanel();
+
+        JButton buttonStopUrgence = new JButton("Stop urgence");
+
+        popPane.add(buttonStopUrgence);
+        popPane.setPreferredSize(new Dimension(150,100));
+        popPane.setBackground(Color.GRAY);
+
+        buttonStopUrgence.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                popFrame.dispose();
+                Gui.isUrgency = false;
+            }
+        });
+
+        popup = pf.getPopup(popFrame, popPane, 200, 150);
+
         JButton buttonUrgency = new JButton(imageIcon);
         buttonUrgency.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (Gui.isUrgency) return;
+
                 System.out.println("URGENCE!!!");
+                Gui.isUrgency = true;
+                popup.show();
             }
         });
 
