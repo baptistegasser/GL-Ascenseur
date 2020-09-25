@@ -19,12 +19,12 @@ public class GuiButtonInElevator extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (finalI == 0)  System.out.println("Go au RDC");
-                    else System.out.println("Go a l'étage : "+(finalI +1));
+                    else System.out.println("Go a l'étage : "+(finalI));
                 }
             });
 
             if (i == 0) button.setText("RDC");
-            else button.setText(""+(i+1));
+            else button.setText(""+(i));
             this.add(button);
         }
     }

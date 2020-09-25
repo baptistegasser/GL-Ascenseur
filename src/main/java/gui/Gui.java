@@ -9,7 +9,7 @@ public class Gui extends JFrame {
 
     final int nbFloor = 6;
 
-    public Gui(String title) {
+    public Gui(String title) throws IOException {
         super(title);
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,7 +24,7 @@ public class Gui extends JFrame {
     /***
      * Generate a Gui of elevator
      */
-    public void generateMasterPane() {
+    public void generateMasterPane() throws IOException {
         masterPane = new JPanel(new GridBagLayout());
 
         // Contrainte appliqué sur le layout
