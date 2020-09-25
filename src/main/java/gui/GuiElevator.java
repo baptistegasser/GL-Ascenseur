@@ -58,9 +58,9 @@ public class GuiElevator extends JPanel {
 
             paneButton.add(button);
             paneButton.add(label);
-            paneButton.setBorder(new EmptyBorder(0,100,0,0));
+            paneButton.setBorder(new EmptyBorder(0,50,0,0));
 
-            panelTop.setBorder(new EmptyBorder(0,0,0,235));
+            panelTop.setBorder(new EmptyBorder(0,0,0,135));
             panelTop.add(paneButton);
         }
 
@@ -92,10 +92,10 @@ public class GuiElevator extends JPanel {
 
             paneButton.add(label);
             paneButton.add(button);
-            paneButton.setBorder(new EmptyBorder(0,0,0,100)); // 50, 150
+            paneButton.setBorder(new EmptyBorder(0,0,0,50)); // 50, 150
 
 
-            panelBottom.setBorder(new EmptyBorder(0,235,0,0)); // 135, 350
+            panelBottom.setBorder(new EmptyBorder(0,135,0,0)); // 135, 350
             panelBottom.add(paneButton);
         }
 

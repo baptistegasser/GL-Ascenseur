@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Gui extends JFrame {
     JPanel masterPane;
 
-    final int nbFloor = 4;
+    final int nbFloor = 6;
 
     public Gui(String title) throws IOException {
         super(title);
