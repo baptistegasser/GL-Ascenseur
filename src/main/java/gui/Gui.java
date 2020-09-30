@@ -1,17 +1,26 @@
 package gui;
 
+import controller.ElevatorController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 public class Gui extends JFrame {
     JPanel masterPane;
+    ElevatorController controller;
 
-    final int nbFloor = 6;
+    GuiButtonInElevator guiButtonInElevator;
+    GuiElevator guiElevator;
+    GuiStatElevator guiStatElevator;
+
+    int nbFloor;
     public static boolean isUrgency = false;
 
-    public Gui(String title) throws IOException {
+    public Gui(String title, ElevatorController controller, int nbFloor) throws IOException {
         super(title);
+        this.nbFloor = nbFloor;
+        this.controller = controller;
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -43,7 +52,8 @@ public class Gui extends JFrame {
         constraints.ipadx = 100;
 
         //Applique un élèment avec les contrainte appliqué
-        masterPane.add(new GuiStatElevator(new BorderLayout()), constraints);
+        guiStatElevator = new GuiStatElevator(new BorderLayout(), controller);
+        masterPane.add(guiStatElevator, constraints);
 
 
         constraints.gridx = 1;
@@ -51,7 +61,8 @@ public class Gui extends JFrame {
         constraints.insets = new Insets(0,150,20,0);
         constraints.ipady = 175;
         constraints.ipadx = 175;
-        masterPane.add(new GuiButtonInElevator(new GridLayout(4,2), nbFloor), constraints);
+        guiButtonInElevator = new GuiButtonInElevator(new GridLayout(4,2), nbFloor, controller);
+        masterPane.add(guiButtonInElevator, constraints);
 
 
         constraints.gridx = 0;
@@ -62,8 +73,15 @@ public class Gui extends JFrame {
         constraints.gridwidth = 2;
         constraints.ipady = 100;
         constraints.ipadx = 100;
-        masterPane.add(new GuiElevator(nbFloor), constraints);
+        guiElevator = new GuiElevator(nbFloor, controller);
+        masterPane.add(guiElevator, constraints);
 
         this.add(masterPane);
+    }
+
+    public void updateGui() throws Exception {
+        guiElevator.updateElevator();
+
+
     }
 }

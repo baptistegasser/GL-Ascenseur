@@ -1,5 +1,6 @@
 package gui;
 
+import controller.ElevatorController;
 import utils.Utils;
 
 import javax.swing.*;
@@ -11,13 +12,16 @@ import java.io.IOException;
 import java.net.URL;
 
 public class GuiElevator extends JPanel {
+    ElevatorController controller;
 
     JPanel panelTop;
     JPanel panelCenter;
     JPanel panelBottom;
 
-    public GuiElevator(int nbFloor) throws IOException {
+    JProgressBar progressBar;
 
+    public GuiElevator(int nbFloor, ElevatorController controller) throws IOException {
+        this.controller = controller;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 
@@ -104,10 +108,10 @@ public class GuiElevator extends JPanel {
         }
 
 
-        JProgressBar progressBar = new JProgressBar(0,100);
+        progressBar = new JProgressBar(0,100);
         progressBar.setMaximum((nbFloor-1)*10);
         progressBar.setPreferredSize(new Dimension(500, 20));
-        progressBar.setValue(30);
+        progressBar.setValue(0);
         progressBar.setStringPainted(true);
 
         panelCenter.add(progressBar);
@@ -121,5 +125,13 @@ public class GuiElevator extends JPanel {
         this.add(panelCenter);
         this.add(Box.createVerticalStrut(10));
         this.add(panelBottom);
+    }
+
+    public JProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+    public void updateElevator() {
+        this.progressBar.setValue(controller.getModel().getCurrentFloor()*10);
     }
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import controller.ElevatorController;
 import utils.Utils;
 
 import javax.swing.*;
@@ -10,10 +11,12 @@ import java.io.IOException;
 import java.net.URL;
 
 public class GuiButtonInElevator extends JPanel {
+    ElevatorController controller;
     Popup popup;
 
-    public GuiButtonInElevator(LayoutManager layout, int nbFloor) throws IOException {
+    public GuiButtonInElevator(LayoutManager layout, int nbFloor, ElevatorController controller) throws IOException {
         super(layout);
+        this.controller = controller;
 
         for (int i =0; i<nbFloor; i++) {
 
@@ -25,8 +28,13 @@ public class GuiButtonInElevator extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     if (Gui.isUrgency) return;
 
-                    if (finalI == 0)  System.out.println("Go au RDC");
-                    else System.out.println("Go a l'étage : "+(finalI));
+                    try {
+                        if (finalI == 0) {
+                            controller.getModel().goTo(0);
+                        } else controller.getModel().goTo(finalI);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
                 }
             });
 
