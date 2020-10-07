@@ -1,12 +1,12 @@
 package commande;
 
+import controller.Request;
+import controller.RequestType;
+
 import java.util.List;
 
 public class FIFOStrategy {
-    public void execute (List<Integer> fifo) {
-        for (Integer integer: fifo) {
-            // Ascenseur.goto(integer);
-            // fifo.remove(integer);
-        }
+    public static int execute (List<Request> fifo, double currentPosition) {
+        return -1;
     }
 }
