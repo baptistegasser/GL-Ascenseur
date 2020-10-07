@@ -20,8 +20,8 @@ public class DemoApp {
     private JFrame window;
 
     public void start() {
-        DemoView view = new DemoView(FLOOR_COUNT);
-        DemoController controller = new DemoController(view);
+        DemoController controller = new DemoController();
+        DemoView view = new DemoView(FLOOR_COUNT, controller);
 
         window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
