@@ -5,5 +5,8 @@ package controller;
  */
 public enum RequestType {
     GO_TO,
+    OUTSIDE_UP,
+    OUTSITE_DOWN,
+    STOP_URGENCY,
     PASS
 }
