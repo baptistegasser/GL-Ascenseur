@@ -2,7 +2,7 @@ package controller;
 
 public class Request {
     RequestType requestType;
-    int floor;
+    int floor; // null si arret d'urgence, sinon floor de destination
 
     public Request(RequestType requestType, int floor) {
         this.requestType = requestType;
