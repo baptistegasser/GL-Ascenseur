@@ -5,4 +5,17 @@ package ui.model;
  * @see ui.view.DemoView
  */
 public class ElevatorModel {
+    int currentFloor;
+
+    public ElevatorModel(int currentFloor) {
+        this.currentFloor = currentFloor;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public void setCurrentFloor(int currentFloor) {
+        this.currentFloor = currentFloor;
+    }
 }

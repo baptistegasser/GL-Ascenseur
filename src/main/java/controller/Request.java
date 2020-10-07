@@ -8,5 +8,13 @@ public class Request {
         this.requestType = requestType;
         this.floor = floor;
     }
+
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
 }
 
