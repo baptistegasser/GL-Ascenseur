@@ -1,24 +1,26 @@
 package commande;
 
+import controller.Request;
+import controller.RequestType;
+
 import java.util.List;
 
 public class ShortestStrategy {
-    public void execute (List<Integer> shortest) {
-        int currentFloor = 1 ;
-        int nextFloor= currentFloor;
-        int newdelta;
-        int oldDelta = 120;
-        for (Integer integer: shortest) {
-            if (currentFloor > integer) {
-                newdelta = currentFloor - integer;
-            }
-            else {
-                newdelta = integer - currentFloor;
-            }
-            if (newdelta > oldDelta) {
-                nextFloor = integer;
-            }
-            oldDelta = newdelta;
+    public static int execute (List<Request> fifo, double currentPosition) {
+        if (fifo.isEmpty()) return -2;
+        for (Request request: fifo) {
+            if (request.getRequestType() == RequestType.STOP_URGENCY)  return -1;
         }
+        int etageToGo= 0;
+        double delta = 480;
+        double tmpDelta;
+        for (Request request: fifo) {
+            if(request.getRequestType() == RequestType.GO_TO) {
+                if(request.getFloor() > currentPosition)  tmpDelta = request.getFloor() - currentPosition;
+                else tmpDelta = currentPosition - request.getFloor();
+                if (tmpDelta > delta) delta = tmpDelta;
+            }
+        }
+        return etageToGo;
     }
 }

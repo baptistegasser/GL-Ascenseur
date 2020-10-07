@@ -37,9 +37,19 @@ public class ControlCommand {
     public void action() {
         new Thread(new Runnable() {
             public void run() {
-                if (currentRequest.getRequestType() == RequestType.GO_TO) {
+               /* if (currentRequest.getRequestType() == RequestType.GO_TO) {
                     simulator.goTo(currentRequest.getFloor());
+                }*/
+               // A remplacer par strategy.execute(listRequest)
+                int result = ShortestStrategy.execute(listRequest, simulator.getPosition());
+                if (result == -1) {
+                    System.out.println("Arrêt d'urgence du simulateur");
+                    // simulator.stop();
                 }
+                else if (result == -2) {
+                    System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
+                }
+                else simulator.goTo(result);
             }
         }).start();
 

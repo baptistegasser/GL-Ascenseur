@@ -34,4 +34,8 @@ public class ElevatorSimulator {
     public void goDown() {
         model.setCurrentFloor(model.getCurrentFloor()-1);
     }
+
+    public double getPosition() {
+        return position;
+    }
 }
