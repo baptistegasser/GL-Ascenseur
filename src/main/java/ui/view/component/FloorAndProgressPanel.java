@@ -22,7 +22,7 @@ public class FloorAndProgressPanel extends JPanel {
     /**
      * Stocke les panneau contenant les boutons d'appels afin de les accéder plus tard (backlight)
      */
-    private HashMap<String, JPanel> buttonPanels;
+    private final HashMap<String, JPanel> buttonPanels;
 
     public FloorAndProgressPanel(final int nbFloor) {
         super();
@@ -179,7 +179,7 @@ public class FloorAndProgressPanel extends JPanel {
         if (panel == null) return;
 
         for (Component c : panel.getComponents()) {
-            if (c != null && c.getName() == "btn") {
+            if (c != null && c.getName().equals("btn")) {
                 c.setBackground(null);
                 break;
             }
