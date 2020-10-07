@@ -16,9 +16,7 @@ public class ElevatorInsidePanel extends JPanel {
         super(new GridLayout(0, 3));
 
         JButton rdc = new JButton("RDC");
-        rdc.addActionListener(e -> {
-            handleFloorRequest(0);
-        });
+        rdc.addActionListener(e -> handleFloorRequest(0));
         this.add(rdc);
         this.add(new JPanel());
 
@@ -39,9 +37,7 @@ public class ElevatorInsidePanel extends JPanel {
             JButton button = new JButton();
 
             final int floor = i;
-            button.addActionListener(e -> {
-                handleFloorRequest(floor);
-            });
+            button.addActionListener(e -> handleFloorRequest(floor));
 
             if (i == 0) button.setText("RDC");
             else button.setText("" + (i));
