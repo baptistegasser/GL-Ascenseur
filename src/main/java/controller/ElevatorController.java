@@ -25,4 +25,10 @@ public class ElevatorController {
     public Elevator getModel() {
         return model;
     }
+
+    public void alertControlCommand(RequestType type, int floor) {
+        Request request = new Request(type, floor);
+
+        controlCommand.addRequest(request);
+    }
 }
