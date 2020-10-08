@@ -2,7 +2,6 @@ package commande;
 
 import controller.Request;
 import controller.RequestType;
-import simulator.ElevatorSimulator;
 import ui.model.ElevatorModel;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class ShortestStrategy  implements SatisfactionStrategy {
     public static Request chooseFloor(List<Request> fifo) {
-        double currentPosition = ElevatorModel.currentFloor;
+        double currentPosition = ElevatorModel.position;
         Request removeRequest = null;
         if (fifo.isEmpty())                 return null;
 
