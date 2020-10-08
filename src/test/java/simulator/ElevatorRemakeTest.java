@@ -124,6 +124,38 @@ class ElevatorRemakeTest {
     }
 
     @Test
+    void willStopWillGoingDown() throws InterruptedException {
+        ElevatorModel model = simulator.getModel();
+        model.setPosition(4);
+
+        simulator.start();
+        simulator.setState(State.MOVING_DOWN);
+        Thread.sleep(100);
+
+        simulator.setState(State.MOVING_DOWN_STOP_NEXT);
+        Thread.sleep(2100);
+
+        assertEquals(3, model.position);
+        assertEquals(State.STOPPED, model.state);
+    }
+
+    @Test
+    void willStopWillGoingUp() throws InterruptedException {
+        ElevatorModel model = simulator.getModel();
+        model.setPosition(4);
+
+        simulator.start();
+        simulator.setState(State.MOVING_UP);
+        Thread.sleep(100);
+
+        simulator.setState(State.MOVING_UP_STOP_NEXT);
+        Thread.sleep(2100);
+
+        assertEquals(5, model.position);
+        assertEquals(State.STOPPED, model.state);
+    }
+
+    @Test
     void start() throws InterruptedException {
         ElevatorModel save = simulator.getModel();
         simulator.start();

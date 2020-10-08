@@ -64,6 +64,8 @@ public class ElevatorRemake {
         private boolean flag = true;
         private boolean stopped = true;
         private long last, elapsed;
+        private int nextFloor = -1;
+        private boolean isGoingToStop = false;
 
         @Override
         public void run() {
@@ -82,13 +84,23 @@ public class ElevatorRemake {
                         if (!stopped) stop();
                         break;
 
-                    case MOVING_UP:
                     case MOVING_UP_STOP_NEXT:
+                        if (!isGoingToStop) {
+                            isGoingToStop = true;
+                            double p = model.getPosition();
+                            nextFloor = (int)(p - (p%1))+1;
+                        }
+                    case MOVING_UP:
                         up();
                         break;
 
-                    case MOVING_DOWN:
                     case MOVING_DOWN_STOP_NEXT:
+                        if (!isGoingToStop) {
+                            isGoingToStop = true;
+                            double p = model.getPosition();
+                            nextFloor = (int)(p - (p%1));
+                        }
+                    case MOVING_DOWN:
                         down();
                         break;
                 }
@@ -106,7 +118,11 @@ public class ElevatorRemake {
             }
 
             double pos = model.getPosition() + elapsed/2000d;
-            if (pos > model.nbFloor) {
+            if (isGoingToStop && pos >= nextFloor) {
+                isGoingToStop = false;
+                model.setState(State.STOPPED);
+                model.setPosition(nextFloor);
+            } else if (pos > model.nbFloor) {
                 model.setState(State.EMERGENCY);
                 model.setPosition(model.nbFloor);
             } else {
@@ -121,7 +137,11 @@ public class ElevatorRemake {
             }
 
             double pos = model.getPosition() - elapsed/2000d;
-            if (pos < 0) {
+            if (isGoingToStop && pos <= nextFloor) {
+                isGoingToStop = false;
+                model.setState(State.STOPPED);
+                model.setPosition(nextFloor);
+            } else if (pos < 0) {
                 model.setState(State.EMERGENCY);
                 model.setPosition(0);
             } else {
