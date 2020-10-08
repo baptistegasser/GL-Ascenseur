@@ -10,7 +10,7 @@ public class ElevatorModel extends Observable<ElevatorModel> {
     public int nbFloor;
     public double position;
     public Object state;
-    int currentFloor;
+    public static int currentFloor;
 
     public ElevatorModel(int currentFloor) {
         this.currentFloor = currentFloor;

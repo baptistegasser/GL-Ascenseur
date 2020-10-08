@@ -2,17 +2,22 @@ package commande;
 
 import controller.Request;
 import controller.RequestType;
+import simulator.ElevatorSimulator;
+import ui.model.ElevatorModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShortestStrategy {
-    public static int execute(List<Request> fifo, double currentPosition) {
+public class ShortestStrategy  implements SatisfactionStrategy {
+    public static Request chooseFloor(List<Request> fifo) {
+        double currentPosition = ElevatorModel.currentFloor;
         Request removeRequest = null;
-        if (fifo.isEmpty()) return -2;
+        if (fifo.isEmpty())                 return null;
+
         for (Request request : fifo) {
             if (request.getRequestType() == RequestType.STOP_URGENCY) {
                 fifo.remove(request);
-                return -1;
+                return null;
             }
         }
         int etageToGo = 0;
@@ -30,13 +35,27 @@ public class ShortestStrategy {
             }
         }
         for (Request request : fifo) {
-           /* if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSITE_DOWN) {
+            if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSITE_DOWN) {
                 if(currentPosition - etageToGo > 0) {
 
                 }
-            }*/
+            }
         }
         fifo.remove(removeRequest);
-        return etageToGo;
+        return null;
+
+    }
+
+
+    @Override
+    public Request nextRequest(ArrayList<Request> listRequest) {
+        System.out.println("NEXT");
+        System.out.println(listRequest);
+        if (listRequest.size() > 0) {
+            return chooseFloor(listRequest);
+        } else {
+            System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
+            return null;
+        }
     }
 }
