@@ -33,4 +33,11 @@ public class DemoController {
     public void handleFloorRequestOutside(Dir dir, int floor) {
         System.out.println("Request for the elevator to come at floor " + floor + " to go " + dir);
     }
+
+    /**
+     * Fonction appelé lorsqu'un technicien remet l'ascenseur en marche.
+     */
+    public void handleEmergencyStopExit() {
+        System.out.println("Asked to exit from emergency stop");
+    }
 }

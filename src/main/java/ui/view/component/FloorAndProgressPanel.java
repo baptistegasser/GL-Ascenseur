@@ -140,7 +140,7 @@ public class FloorAndProgressPanel extends JPanel {
 
         button.addActionListener(e -> {
             button.setBackground(Color.ORANGE);
-            handleClick(dir, floor);
+            controller.handleFloorRequestOutside(dir, floor);
         });
 
         JLabel label = new JLabel("   " + floor);
@@ -152,16 +152,6 @@ public class FloorAndProgressPanel extends JPanel {
         container.add(label);
         container.setBorder(new EmptyBorder(0, 0, 0, 50));
         return container;
-    }
-
-    /**
-     * Fonction appelé lors d'un click sur un bouton d'appel d'ascenseur.
-     *
-     * @param dir   la direction souhaité par l'utilisateur qui cliquera
-     * @param floor l'étage où ce situe le bouton
-     */
-    private void handleClick(Dir dir, int floor) {
-        System.out.printf("clicked button at floor %d in direction %s%n", floor, dir.toString());
     }
 
     /**

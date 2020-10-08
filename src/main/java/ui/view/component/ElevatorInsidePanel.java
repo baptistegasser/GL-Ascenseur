@@ -23,7 +23,7 @@ public class ElevatorInsidePanel extends JPanel {
         this.controller = controller;
 
         JButton rdc = new JButton("RDC");
-        rdc.addActionListener(e -> handleFloorRequest(0));
+        rdc.addActionListener(e -> controller.handleFloorRequestInside(0));
         this.add(rdc);
         this.add(new JPanel());
 
@@ -44,7 +44,7 @@ public class ElevatorInsidePanel extends JPanel {
             JButton button = new JButton();
 
             final int floor = i;
-            button.addActionListener(e -> handleFloorRequest(floor));
+            button.addActionListener(e -> controller.handleFloorRequestInside(floor));
 
             if (i == 0) button.setText("RDC");
             else button.setText("" + (i));
@@ -56,6 +56,7 @@ public class ElevatorInsidePanel extends JPanel {
      * Affiche une pop up qui bloque l'affichage jusqu'à ce qu'on la ferme
      */
     private void showEmergencyPopUp() {
+        controller.handleEmergencyStopRequest();
         final String[] option = {"Retour à la normal"};
         JOptionPane.showOptionDialog(SwingUtilities.getWindowAncestor(this),
                 "Arrêt d'urgence !",
@@ -66,23 +67,7 @@ public class ElevatorInsidePanel extends JPanel {
                 option,
                 option[0]
         );
-        // TODO faire quelque chose ici quand on ferme
-    }
-
-    /**
-     * Fonction appeler lors du click sur le bouton d'arrêt d'urgence.
-     */
-    private void handleEmergencyStop() {
-        System.out.println("Emergency called");
-    }
-
-    /**
-     * Fonction appeler lors du click sur un bouton d'étage.
-     *
-     * @param floor l'étage lié au bouton
-     */
-    private void handleFloorRequest(int floor) {
-        System.out.println("user want floor " + floor);
+        controller.handleEmergencyStopExit();
     }
 
     /**
