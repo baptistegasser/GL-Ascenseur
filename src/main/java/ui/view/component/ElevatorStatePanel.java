@@ -11,6 +11,9 @@ public class ElevatorStatePanel extends JPanel {
     private final JLabel stateLbl;
 
     public ElevatorStatePanel() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(new JLabel("État de l'ascenseur"));
         this.stateLbl = new JLabel();
         this.add(stateLbl);
 
@@ -23,25 +26,25 @@ public class ElevatorStatePanel extends JPanel {
      * @param state le nouvelle état
      */
     public void setState(State state) {
-        String display = "État de l'ascenseur: ";
+        String display = "display error";
         switch (state) {
             case STOPPED:
-                display += "arrêté";
+                display = "Arrêté";
                 break;
             case EMERGENCY:
-                display += "en arrêt d'urgence";
+                display = "En arrêt d'urgence";
                 break;
             case MOVING_UP:
-                display += "en monté";
+                display = "En monté";
                 break;
             case MOVING_DOWN:
-                display += "en descente";
+                display = "En descente";
                 break;
             case MOVING_UP_STOP_NEXT:
-                display += "en descente avec arrêt au prochain étage";
+                display = "En descente avec arrêt au prochain étage";
                 break;
             case MOVING_DOWN_STOP_NEXT:
-                display += "en monté avec arrêt au prochain étage";
+                display = "En monté avec arrêt au prochain étage";
                 break;
         }
         this.stateLbl.setText(display);
