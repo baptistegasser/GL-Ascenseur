@@ -22,7 +22,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         double etageToGo = 0;
         double delta = 480;
         double tmpDelta;
-        double currentPosition = 0;
+        double currentPosition = 4 ;
         Request removeRequest = null;
 
         // Si la liste de requete et vite, ou si elle contient une requete d'arret d'urgence on return null
@@ -43,7 +43,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                 else tmpDelta = currentPosition - request.getPosition();
                 if (tmpDelta < delta) {
                     delta = tmpDelta;
-                    //etageToGo = request.getFloor();
+                    etageToGo = request.getPosition();
                     removeRequest = request;
                 }
             }
@@ -85,7 +85,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
         System.out.println("NEXT");
-        System.out.println(listRequest);
+        //System.out.println(listRequest);
         if (listRequest.size() > 0) {
             //  On retourne la requête à traiter
             return chooseFloor(listRequest);
