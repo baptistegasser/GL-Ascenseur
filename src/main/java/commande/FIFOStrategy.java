@@ -14,7 +14,7 @@ public class FIFOStrategy {
                 return -1;
             }
         }
-        int gotofloor = fifo.get(1).getFloor();
+        int gotofloor = fifo.get(0).getFloor();
         fifo.remove(0);
         return gotofloor;
     }
