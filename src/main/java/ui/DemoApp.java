@@ -23,7 +23,7 @@ public class DemoApp {
     public void start() {
         DemoController controller = new DemoController();
         // TODO simulator.getModel();
-        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());
+        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel(0));
 
         window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
