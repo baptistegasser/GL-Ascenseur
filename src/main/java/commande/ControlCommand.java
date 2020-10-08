@@ -56,11 +56,10 @@ public class ControlCommand {
                 }
                 else simulator.goTo(result);*/
 
+                //Passage au suivant
                 listRequest.remove(currentRequest);
-                if (strategy.nextRequest(listRequest) == 1) {
-                    currentRequest = listRequest.get(0);
-                    action();
-                } else currentRequest = null;
+                currentRequest = strategy.nextRequest(listRequest);
+                if (currentRequest != null) action();
                 System.out.println(currentRequest);
             }
         }).start();
