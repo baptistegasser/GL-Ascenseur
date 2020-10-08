@@ -25,8 +25,6 @@ public class DemoController {
         Request request = new Request(RequestType.URGENCY, -1);
 
         controlCommand.addRequest(request);
-
-        System.out.println("Emergency stop request");
     }
 
     /**
@@ -38,7 +36,6 @@ public class DemoController {
         Request request = new Request(RequestType.GO_TO, floor);
 
         controlCommand.addRequest(request);
-        System.out.println("Request to go to floor " + floor);
     }
 
     /**
@@ -53,8 +50,6 @@ public class DemoController {
         else if (dir == Dir.UP) request = new Request(RequestType.OUTSIDE_UP, floor);
 
         controlCommand.addRequest(request);
-
-        System.out.println("Request for the elevator to come at floor " + floor + " to go " + dir);
     }
 
     /**
@@ -64,6 +59,5 @@ public class DemoController {
         Request request = new Request(RequestType.STOP_URGENCY, -1);
 
         controlCommand.addRequest(request);
-        System.out.println("Asked to exit from emergency stop");
     }
 }

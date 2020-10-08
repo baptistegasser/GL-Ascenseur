@@ -11,7 +11,7 @@ import java.awt.image.renderable.RenderableImageProducer;
 import java.util.ArrayList;
 
 public class ControlCommand {
-    State state;
+    State stateInEmergency;
 
     Request currentRequest;
     ArrayList<Request> listRequest;
@@ -26,7 +26,7 @@ public class ControlCommand {
     ActionRequest action;
 
     public ControlCommand(ElevatorRemake simulator, SatisfactionStrategy strategy, ElevatorModel model) {
-        state = State.STOPPED;
+        stateInEmergency = State.STOPPED;
         currentRequest = null;
         listRequest = new ArrayList<>();
         this.simulator = simulator;
@@ -44,12 +44,18 @@ public class ControlCommand {
 
         if (request == null) return;
 
+        //Gestion des cas d'urgences
         if (request.getRequestType() == RequestType.URGENCY) {
+            stateInEmergency = simulator.getModel().state;
             simulator.setState(State.EMERGENCY);
+            return;
         }
 
+        //Gestion da suppression du cas d'urgence
         if (request.getRequestType() == RequestType.STOP_URGENCY) {
-            simulator.setState(State.STOPPED);
+            simulator.setState(stateInEmergency);
+            stateInEmergency = State.STOPPED;
+            return;
         }
 
         if (currentRequest == null) {
@@ -101,7 +107,7 @@ public class ControlCommand {
                 try {
                     //System.out.println(currentRequest);
                     if (currentRequest != null) {
-                        System.out.println(currentRequest);
+                        System.out.println("Current : "+ currentRequest);
 
                         //Cas d'une requête Go_To
                         if (currentRequest.getRequestType() == RequestType.GO_TO) {
