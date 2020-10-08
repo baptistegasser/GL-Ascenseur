@@ -87,6 +87,9 @@ public class ControlCommand {
         }
     }
 
+    /***
+     * Class permettant de gérer la liste de requêtes
+     */
     public class ActionRequest implements Runnable {
         private boolean flag = true;
 
@@ -109,17 +112,6 @@ public class ControlCommand {
                                 goToDown();
                             } else return;
                         }
-                     /*if (requests.size() > 0) {
-                    //System.out.println("Requete : " + requests);
-
-                    for (int i = 0; i < requests.size(); ) {
-                        if (model.getPosition() == requests.get(i).getPosition()) {
-                            //System.out.println("While : "+requests.get(0));
-                            simulator.setState(stateRequestsForStop);
-                            i++;
-                            }
-                        }
-                    }*/
 
                         Thread.sleep(3000);
 
@@ -158,15 +150,16 @@ public class ControlCommand {
             return returnList;
         }
 
+        /**
+         * Ordonne la simulation de monter la cabine vers l'étage de la requête courante
+         * @throws InterruptedException
+         */
         public void goToUp() throws InterruptedException {
             System.out.println("Up");
-            //stateRequestsForStop = State.MOVING_UP_STOP_NEXT;
-            //requests = getListOfAction(RequestType.OUTSIDE_UP);
 
             simulator.setState(State.MOVING_UP);
             //Attend que la cabine arrive pour l'arrêt aux prochain
             while (simulator.getModel().getPosition()<currentRequest.getPosition()-1) {
-                //System.out.println("Position : "+ simulator.getModel().getPosition());
                 Thread.sleep(250);
             }
             simulator.setState(State.MOVING_UP_STOP_NEXT);
@@ -177,14 +170,15 @@ public class ControlCommand {
             }
         }
 
+        /**
+         * Ordonne la simulation de descendre la cabine vers l'étage de la requête courante
+         * @throws InterruptedException
+         */
         public void goToDown() throws InterruptedException {
             System.out.println("Down");
-            //stateRequestsForStop = State.MOVING_DOWN_STOP_NEXT;
-            //requests = getListOfAction(RequestType.OUTSIDE_DOWN);
             simulator.setState(State.MOVING_DOWN);
 
             while (simulator.getModel().getPosition()>currentRequest.getPosition()+1) {
-                //System.out.println("Position : "+ simulator.getModel().getPosition());
                 Thread.sleep(250);
             }
             simulator.setState(State.MOVING_DOWN_STOP_NEXT);
