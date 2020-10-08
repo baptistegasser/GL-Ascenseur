@@ -88,7 +88,7 @@ class ElevatorRemakeTest {
 
         simulator.start();
         simulator.setState(State.MOVING_DOWN);
-        Thread.sleep(500);
+        Thread.sleep(750);
 
         assertEquals(0, model.getPosition());
         assertEquals(State.EMERGENCY, model.state);
