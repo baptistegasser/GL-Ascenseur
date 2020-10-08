@@ -47,7 +47,7 @@ public class ControlCommand {
         new Thread(new Runnable() {
             public void run() {
                if (currentRequest.getRequestType() == RequestType.GO_TO) {
-                    simulator.goTo(currentRequest.getFloor());
+                    simulator.goTo(currentRequest.getPosition());
                 }
                // A remplacer par strategy.execute(listRequest)
                 /*int result = FIFOStrategy.execute(listRequest);

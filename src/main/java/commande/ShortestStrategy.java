@@ -11,7 +11,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
 
     public static Request chooseFloor(List<Request> fifo) {
 
-        int etageToGo = 0;
+        double etageToGo = 0;
         double delta = 480;
         double tmpDelta;
         double currentPosition = ElevatorModel.position;
@@ -27,8 +27,8 @@ public class ShortestStrategy  implements SatisfactionStrategy {
 
         for (Request request : fifo) {
             if (request.getRequestType() == RequestType.GO_TO) {
-                if (request.getFloor() > currentPosition) tmpDelta = request.getFloor() - currentPosition;
-                else tmpDelta = currentPosition - request.getFloor();
+                if (request.getPosition() > currentPosition) tmpDelta = request.getPosition() - currentPosition;
+                else tmpDelta = currentPosition - request.getPosition();
                 if (tmpDelta < delta) {
                     delta = tmpDelta;
                     //etageToGo = request.getFloor();
@@ -41,7 +41,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         for (Request request : fifo) {
             if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSITE_DOWN) {
                 if(currentPosition > etageToGo) { // descente
-                    if(request.getFloor() < currentPosition && request.getFloor() > etageToGo) {
+                    if(request.getPosition() < currentPosition && request.getPosition() > etageToGo) {
                         if (request.getRequestType() == RequestType.OUTSITE_DOWN) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
@@ -49,7 +49,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                     }
                 }
                 else if (etageToGo > currentPosition) { // monté
-                    if(request.getFloor() > currentPosition && request.getFloor() < etageToGo) {
+                    if(request.getPosition() > currentPosition && request.getPosition() < etageToGo) {
                         if (request.getRequestType() == RequestType.OUTSIDE_UP) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
