@@ -17,8 +17,8 @@ public class ElevatorSimulator {
     }
 
     public void goTo(double floor) {
-        while (floor != ElevatorModel.position) {
-            if (floor < ElevatorModel.position) {
+        while (floor != model.getPosition()) {
+            if (floor < model.getPosition()) {
                 System.out.println("GoDown");
                 goDown();
             } else {
@@ -30,11 +30,10 @@ public class ElevatorSimulator {
     }
 
     public void goUp() {
-        ++ElevatorModel.position;
+        model.setPosition(model.getPosition()+1);
     }
 
-    public void goDown() {
-        --ElevatorModel.position;
+    public void goDown() { model.setPosition(model.getPosition()-1);
     }
 
     public double getPosition() {

@@ -30,4 +30,8 @@ public class ElevatorModel extends Observable<ElevatorModel> {
         this.state = state;
         notifyObservers();
     }
+
+    public double getPosition() {
+        return position;
+    }
 }

@@ -24,9 +24,9 @@ public class DemoController {
      * Fonction appelé lors ce que l'on souhaite arrêter l'ascenseur en urgence.
      */
     public void handleEmergencyStopRequest() {
-        Request request = new Request(RequestType.STOP_URGENCY, ElevatorModel.position);
+        //Request request = new Request(RequestType.STOP_URGENCY, ElevatorModel.position);
 
-        controlCommand.addRequest(request);
+        //controlCommand.addRequest(request);
 
         System.out.println("Emergency stop request");
     }
