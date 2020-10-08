@@ -1,10 +1,7 @@
 import commande.ControlCommand;
-import controller.ElevatorController;
-import gui.Gui;
 import simulator.ElevatorSimulator;
 
 import java.io.IOException;
-import java.util.ConcurrentModificationException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -14,6 +11,6 @@ public class Main {
 
         ControlCommand controlCommand = new ControlCommand(simulator);
 
-        ElevatorController controller = new ElevatorController(controlCommand);
+        //ElevatorController controller = new ElevatorController(controlCommand);
     }
 }
