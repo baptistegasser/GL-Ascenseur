@@ -41,7 +41,7 @@ public class ControlCommand {
                     simulator.goTo(currentRequest.getFloor());
                 }*/
                // A remplacer par strategy.execute(listRequest)
-                int result = ShortestStrategy.execute(listRequest, simulator.getPosition());
+                int result = FIFOStrategy.execute(listRequest);
                 if (result == -1) {
                     System.out.println("Arrêt d'urgence du simulateur");
                     // simulator.stop();
