@@ -41,10 +41,10 @@ public class ElevatorStatePanel extends JPanel {
                 display = "En descente";
                 break;
             case MOVING_UP_STOP_NEXT:
-                display = "En descente avec arrêt au prochain étage";
+                display = "En monté avec arrêt au prochain étage";
                 break;
             case MOVING_DOWN_STOP_NEXT:
-                display = "En monté avec arrêt au prochain étage";
+                display = "En descente avec arrêt au prochain étage";
                 break;
         }
         this.stateLbl.setText(display);

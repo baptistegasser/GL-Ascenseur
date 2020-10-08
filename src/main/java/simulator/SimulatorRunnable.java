@@ -75,6 +75,12 @@ class SimulatorRunnable implements Runnable {
                     down();
                     break;
             }
+
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
