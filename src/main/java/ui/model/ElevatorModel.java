@@ -1,5 +1,6 @@
 package ui.model;
 
+import commande.State;
 import utils.Observable;
 
 /**
@@ -9,7 +10,7 @@ import utils.Observable;
 public class ElevatorModel extends Observable<ElevatorModel> {
     public int nbFloor;
     public static double position;
-    public Object state;
+    public State state;
 
     public ElevatorModel() {
         position = 0;
