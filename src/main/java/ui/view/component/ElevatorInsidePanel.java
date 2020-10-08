@@ -1,5 +1,6 @@
 package ui.view.component;
 
+import ui.controller.DemoController;
 import utils.Utils;
 
 import javax.imageio.ImageIO;
@@ -12,8 +13,14 @@ import java.net.URL;
  * Ce composant contient l'affichage des boutons présent à l'intérieur de l'ascenseur
  */
 public class ElevatorInsidePanel extends JPanel {
-    public ElevatorInsidePanel(int nbFloor) {
+    /**
+     * Le controller de la vue où ce trouve cette élément.
+     */
+    private final DemoController controller;
+
+    public ElevatorInsidePanel(int nbFloor, DemoController controller) {
         super(new GridLayout(0, 3));
+        this.controller = controller;
 
         JButton rdc = new JButton("RDC");
         rdc.addActionListener(e -> handleFloorRequest(0));

@@ -1,6 +1,7 @@
 package ui.view.component;
 
 import ui.DemoApp;
+import ui.controller.DemoController;
 import ui.model.Dir;
 import utils.Utils;
 
@@ -23,10 +24,15 @@ public class FloorAndProgressPanel extends JPanel {
      * Stocke les panneau contenant les boutons d'appels afin de les accéder plus tard (backlight)
      */
     private final HashMap<String, JPanel> buttonPanels;
+    /**
+     * Le controller de la vue où ce trouve cette élément.
+     */
+    private final DemoController controller;
 
-    public FloorAndProgressPanel(final int nbFloor) {
+    public FloorAndProgressPanel(final int nbFloor, DemoController controller) {
         super();
         this.nbFloor = nbFloor;
+        this.controller = controller;
         this.buttonPanels = new HashMap<>();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
