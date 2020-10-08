@@ -14,7 +14,7 @@ public class ControlCommandTest {
     @Test
     public void addRequestTest() {
         ElevatorRemake simulator = new ElevatorRemake(6,10);
-        ControlCommand controlCommand = new ControlCommand(simulator, new FIFOStrategy(), simulator.getModel());
+        ControlCommand controlCommand = new ControlCommand(simulator, new FIFOStrategy());
 
 
     }
@@ -22,8 +22,7 @@ public class ControlCommandTest {
     @Test
     public void actionTest() {
         try {
-            ElevatorModel model = new ElevatorModel();
-            ControlCommand controlCommand = new ControlCommand(new ElevatorRemake(6, 10), new FIFOStrategy(), model);
+            ControlCommand controlCommand = new ControlCommand(new ElevatorRemake(6, 10), new FIFOStrategy());
 
             Request request = new Request(RequestType.GO_TO, 5);
             Request request1 = new Request(RequestType.OUTSIDE_UP, 2);

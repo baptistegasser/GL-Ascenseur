@@ -18,7 +18,7 @@ public class DemoApp {
 
     public void start() {
         ElevatorRemake elevatorRemake = new ElevatorRemake(FLOOR_COUNT, SPEED);
-        ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy(), elevatorRemake.getModel());
+        ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy());
         DemoController controller = new DemoController(controlCommand);
         DemoView view = new DemoView(FLOOR_COUNT, WINDOW_WIDTH, controller, elevatorRemake.getModel());
 
