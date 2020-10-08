@@ -83,7 +83,10 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         return removeRequest;
     }
 
-
+    /**
+     * Cette méthode renvoie la requête renvoyée par chooseFloor()
+     * Si la liste est vide, elle retourne null
+     */
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
         System.out.println("NEXT");

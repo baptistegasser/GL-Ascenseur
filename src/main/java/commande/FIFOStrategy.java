@@ -4,6 +4,10 @@ import commande.request.Request;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe permet de choisir les retraites à traiter grâce à la méthode FIFO (First In First Out).
+ * Cette méthode est très simple mais n'est pas du tout optimisée
+ */
 public class FIFOStrategy implements SatisfactionStrategy{
     /**
      * Stratégie choisissant les requêtes les plus anciennes
