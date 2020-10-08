@@ -51,7 +51,7 @@ public class ElevatorRemake {
     public void stop() throws InterruptedException {
         if (thread != null && core != null && core.flag) {
             core.flag = false;
-            wait(1000);
+            Thread.sleep(500);
             if (thread.isAlive()) {
                 thread.interrupt();
             }
@@ -62,41 +62,71 @@ public class ElevatorRemake {
 
     private class Core implements Runnable {
         private boolean flag = true;
-        private long startTime = 0;
         private boolean stopped = true;
+        private long last, elapsed;
 
         @Override
         public void run() {
-            double msSpeed = speed *1000;
+            double msSpeed = speed * 1000;
+            last = System.currentTimeMillis();
 
-            long elapsed;
+            long time;
             while (flag) {
-                final State state = model.state;
-                elapsed = System.currentTimeMillis() - startTime;
-                switch (state) {
+                time = System.currentTimeMillis();
+                elapsed = time - last;
+                last = time;
+
+                switch (model.state) {
                     case STOPPED:
                     case EMERGENCY:
-                        if (!stopped) stopped = true;
+                        if (!stopped) stop();
                         break;
 
                     case MOVING_UP:
                     case MOVING_UP_STOP_NEXT:
-                        if (stopped) start();
-                        model.setPosition(model.position + elapsed/msSpeed);
+                        up();
                         break;
 
                     case MOVING_DOWN:
                     case MOVING_DOWN_STOP_NEXT:
-                        if (stopped) start();
-                        model.setPosition(model.position - elapsed/msSpeed);
+                        down();
                         break;
                 }
             }
         }
 
-        private void start() {
-            stopped = false;
-            startTime = System.currentTimeMillis();
+        private void stop() {
+            stopped = true;
+        }
+
+        private void up() {
+            if (stopped) {
+                stopped = false;
+                return;
+            }
+
+            double pos = model.getPosition() + elapsed/2000d;
+            if (pos > model.nbFloor) {
+                model.setState(State.EMERGENCY);
+                model.setPosition(model.nbFloor);
+            } else {
+                model.setPosition(pos);
+            }
+        }
+
+        private void down() {
+            if (stopped) {
+                stopped = false;
+                return;
+            }
+
+            double pos = model.getPosition() - elapsed/2000d;
+            if (pos < 0) {
+                model.setState(State.EMERGENCY);
+                model.setPosition(0);
+            } else {
+                model.setPosition(pos);
+            }
         }
     }
 }
