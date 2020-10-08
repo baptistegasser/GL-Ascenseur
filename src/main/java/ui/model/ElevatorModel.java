@@ -11,5 +11,7 @@ public class ElevatorModel extends Observable<ElevatorModel> {
     public static double position;
     public Object state;
 
-
+    public ElevatorModel() {
+        position = 0;
+    }
 }
