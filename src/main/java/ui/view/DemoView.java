@@ -25,11 +25,19 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
      */
     private final ElevatorModel model;
 
+    private final ElevatorStatePanel elevatorStatePanel;
+    private final ElevatorInsidePanel elevatorInsidePanel;
+    private final FloorAndProgressPanel floorAndProgressPanel;
+
     public DemoView(int nbFloor, DemoController controller, ElevatorModel model) {
         super(new GridBagLayout());
         this.controller = controller;
         this.model = model;
         this.model.observe(this);
+
+        this.elevatorStatePanel = new ElevatorStatePanel();
+        this.elevatorInsidePanel = new ElevatorInsidePanel(nbFloor, controller);
+        this.floorAndProgressPanel = new FloorAndProgressPanel(nbFloor, controller);
 
         // Créer une contrainte en grille
         GridBagConstraints constraints = new GridBagConstraints();
@@ -39,24 +47,26 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
         constraints.gridy = 0;
         constraints.ipady = 100;
         constraints.ipadx = 100;
-        add(new ElevatorStatePanel(), constraints);
+        add(this.elevatorStatePanel, constraints);
 
         // Ajout du panneau affichant les boutons internes
+        constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;
         constraints.insets = new Insets(0,150,20,0);
         constraints.ipady = 175;
         constraints.ipadx = 175;
-        add(new ElevatorInsidePanel(nbFloor), constraints);
+        add(this.elevatorInsidePanel, constraints);
 
         // Ajout du panneau affichant la position et les boutons externes
+        constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.insets = new Insets(0,0,0,0);
         constraints.gridwidth = 2; // Centre en utilisant les d2 colones pour le panneau
         constraints.ipady = 190;
         constraints.ipadx = DemoApp.WINDOW_WIDTH;
-        add(new FloorAndProgressPanel(nbFloor), constraints);
+        add(this.floorAndProgressPanel, constraints);
     }
 
     @Override
