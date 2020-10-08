@@ -9,11 +9,11 @@ public class ElevatorSimulator {
 
     ElevatorModel model;
 
-    public ElevatorSimulator(int floorCount, int speed, double position) {
+    public ElevatorSimulator(int floorCount, int speed, double position, ElevatorModel model) {
         this.floorCount = floorCount;
         this.speed = speed;
         this.position = position;
-        this.model = new ElevatorModel();
+        this.model = model;
     }
 
     public void goTo(double floor) {

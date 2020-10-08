@@ -1,6 +1,6 @@
 package simulator;
 
-import commande.State;
+import command.State;
 import ui.model.ElevatorModel;
 
 /**

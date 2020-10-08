@@ -1,7 +1,7 @@
-package commande;
+package command;
 
-import commande.request.Request;
-import commande.request.RequestType;
+import command.request.Request;
+import command.request.RequestType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,13 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         double etageToGo = 0;
         double delta = 480;
         double tmpDelta;
-        double currentPosition = 0;
+        double currentPosition = 4 ;
         Request removeRequest = null;
 
         // Si la liste de requete et vite, ou si elle contient une requete d'arret d'urgence on return null
         if (fifo.isEmpty())  return null;
         for (Request request : fifo) {
-            if (request.getRequestType() == RequestType.STOP_URGENCY) {
+            if (request.getRequestType() == RequestType.URGENCY) {
                 //fifo.remove(request);
                 return null;
             }
@@ -43,14 +43,14 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                 else tmpDelta = currentPosition - request.getPosition();
                 if (tmpDelta < delta) {
                     delta = tmpDelta;
-                    //etageToGo = request.getFloor();
+                    etageToGo = request.getPosition();
                     removeRequest = request;
                 }
             }
         }
 
         // Ici on traite les requêtes qui on été faites depuis l'exterieur de l'ascenseur
-        //TODO Ici c'est la dernière requete en OUTSIDE qui sera prise en compte, et non la plus proche. A fix ?
+        //TODO Ici c'est la première requete en OUTSIDE qui sera prise en compte, et non la plus proche. A fix ?
         for (Request request : fifo) {
             // si c'est une requete exterieur, on la traite
             if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSIDE_DOWN) {
@@ -62,6 +62,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                         if (request.getRequestType() == RequestType.OUTSIDE_DOWN) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
+                            break;
                         }
                     }
                 }
@@ -73,6 +74,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                         if (request.getRequestType() == RequestType.OUTSIDE_UP) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
+                            break;
                         }
                     }
                 }
@@ -81,11 +83,14 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         return removeRequest;
     }
 
-
+    /**
+     * Cette méthode renvoie la requête renvoyée par chooseFloor()
+     * Si la liste est vide, elle retourne null
+     */
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
         System.out.println("NEXT");
-        System.out.println(listRequest);
+        //System.out.println(listRequest);
         if (listRequest.size() > 0) {
             //  On retourne la requête à traiter
             return chooseFloor(listRequest);

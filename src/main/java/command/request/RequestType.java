@@ -1,4 +1,4 @@
-package commande.request;
+package command.request;
 
 /**
  * Enumère tous les types de requètes nécessaire
@@ -8,5 +8,5 @@ public enum RequestType {
     OUTSIDE_UP,
     OUTSIDE_DOWN,
     STOP_URGENCY,
-    PASS
+    URGENCY
 }

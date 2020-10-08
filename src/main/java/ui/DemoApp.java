@@ -1,7 +1,7 @@
 package ui;
 
-import commande.ControlCommand;
-import commande.FIFOStrategy;
+import command.ControlCommand;
+import command.FIFOStrategy;
 import simulator.ElevatorSimulator;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
@@ -25,8 +25,9 @@ public class DemoApp {
     private JFrame window;
 
     public void start() {
-        ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0);
-        ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy());
+        ElevatorModel model = new ElevatorModel();
+        ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0,model);
+        ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy(),model);
         DemoController controller = new DemoController(controlCommand);
         // TODO simulator.getModel();
         DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());

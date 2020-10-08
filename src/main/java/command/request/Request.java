@@ -1,8 +1,13 @@
-package commande.request;
+package command.request;
 
+/**
+ * Cette classe modélise une requête utilisateur
+ * avec un type (requete depuis l'exterieur de l'ascenseur, requete intérieure, requete d'arret d'urgence)
+ * ainsi que la position cible pour l'ascenseur (-1 si arret d'urgence)
+ */
 public class Request {
     RequestType requestType;
-    double position; // null si arret d'urgence, sinon floor de destination
+    double position; // -1 si arret d'urgence, sinon floor de destination
 
     public Request(RequestType requestType, double floor) {
         this.requestType = requestType;

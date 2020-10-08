@@ -1,8 +1,9 @@
-package commande;
+package command;
 
-import commande.request.Request;
-import commande.request.RequestType;
+import command.request.Request;
+import command.request.RequestType;
 import simulator.ElevatorSimulator;
+import ui.model.ElevatorModel;
 
 import java.util.ArrayList;
 
@@ -14,21 +15,32 @@ public class ControlCommand {
 
     ElevatorSimulator simulator;
 
+    ElevatorModel model;
+
     SatisfactionStrategy strategy;
 
-    public ControlCommand(ElevatorSimulator simulator, SatisfactionStrategy strategy) {
+    public ControlCommand(ElevatorSimulator simulator, SatisfactionStrategy strategy, ElevatorModel model) {
         state = State.STOPPED;
         currentRequest = null;
         listRequest = new ArrayList<>();
         this.simulator = simulator;
         this.strategy = strategy;
+        this.model = model;
     }
 
+    /**
+     * Ajoute une nouvelle requête à la liste de requête, si la liste est vide, place la requête en requête courante directement
+     * @param request Requête à ajouter
+     */
     public void addRequest(Request request) {
         System.out.println(request);
 
+        if (request.getRequestType() == RequestType.URGENCY) {
+            state = State.EMERGENCY;
+        }
+
         if (request.getRequestType() == RequestType.STOP_URGENCY) {
-            System.out.println("Arrêt d'urgence du simulateur");
+            state = State.STOPPED;
         }
 
         if (currentRequest == null) {

@@ -1,12 +1,10 @@
 package ui.controller;
 
-import commande.ControlCommand;
-import commande.request.Request;
-import commande.request.RequestType;
+import command.ControlCommand;
+import command.request.Request;
+import command.request.RequestType;
 import ui.model.Dir;
-import ui.model.ElevatorModel;
 import ui.view.DemoView;
-import ui.view.component.ElevatorInsidePanel;
 
 /**
  * Le contrôler chargé d'opérer la vue de démo.
@@ -24,9 +22,9 @@ public class DemoController {
      * Fonction appelé lors ce que l'on souhaite arrêter l'ascenseur en urgence.
      */
     public void handleEmergencyStopRequest() {
-        //Request request = new Request(RequestType.STOP_URGENCY, ElevatorModel.position);
+        Request request = new Request(RequestType.URGENCY, -1);
 
-        //controlCommand.addRequest(request);
+        controlCommand.addRequest(request);
 
         System.out.println("Emergency stop request");
     }
@@ -57,6 +55,10 @@ public class DemoController {
      * Fonction appelé lorsqu'un technicien remet l'ascenseur en marche.
      */
     public void handleEmergencyStopExit() {
+        Request request = new Request(RequestType.STOP_URGENCY, -1);
+
+        controlCommand.addRequest(request);
+
         System.out.println("Asked to exit from emergency stop");
     }
 }
