@@ -39,10 +39,10 @@ public class ShortestStrategy  implements SatisfactionStrategy {
 
         //TODO Ici c'est la dernière requete en OUTSIDE qui sera prise en compte, et non la plus proche. A fix ?
         for (Request request : fifo) {
-            if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSITE_DOWN) {
+            if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSIDE_DOWN) {
                 if(currentPosition > etageToGo) { // descente
                     if(request.getPosition() < currentPosition && request.getPosition() > etageToGo) {
-                        if (request.getRequestType() == RequestType.OUTSITE_DOWN) {
+                        if (request.getRequestType() == RequestType.OUTSIDE_DOWN) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
                         }

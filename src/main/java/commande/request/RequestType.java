@@ -6,7 +6,7 @@ package commande.request;
 public enum RequestType {
     GO_TO,
     OUTSIDE_UP,
-    OUTSITE_DOWN,
+    OUTSIDE_DOWN,
     STOP_URGENCY,
     PASS
 }
