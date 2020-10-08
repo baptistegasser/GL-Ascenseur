@@ -1,8 +1,8 @@
 package ui.controller;
 
 import commande.ControlCommand;
-import controller.Request;
-import controller.RequestType;
+import commande.request.Request;
+import commande.request.RequestType;
 import ui.model.Dir;
 import ui.view.DemoView;
 

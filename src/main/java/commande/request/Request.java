@@ -1,4 +1,4 @@
-package controller;
+package commande.request;
 
 public class Request {
     RequestType requestType;

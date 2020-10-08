@@ -29,7 +29,7 @@ public class DemoApp {
         ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy());
         DemoController controller = new DemoController(controlCommand);
         // TODO simulator.getModel();
-        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel(0));
+        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());
 
         window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);

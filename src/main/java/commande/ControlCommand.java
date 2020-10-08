@@ -1,7 +1,7 @@
 package commande;
 
-import controller.Request;
-import controller.RequestType;
+import commande.request.Request;
+import commande.request.RequestType;
 import simulator.ElevatorSimulator;
 
 import java.util.ArrayList;

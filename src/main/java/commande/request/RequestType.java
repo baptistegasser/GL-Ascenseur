@@ -1,4 +1,4 @@
-package controller;
+package commande.request;
 
 /**
  * Enumère tous les types de requètes nécessaire

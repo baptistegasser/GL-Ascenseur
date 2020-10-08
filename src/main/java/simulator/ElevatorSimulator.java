@@ -13,12 +13,12 @@ public class ElevatorSimulator {
         this.floorCount = floorCount;
         this.speed = speed;
         this.position = position;
-        this.model = new ElevatorModel(0);
+        this.model = new ElevatorModel();
     }
 
     public void goTo(int floor) {
-        while (floor != model.getCurrentFloor()) {
-            if (floor < model.getCurrentFloor()) {
+        while (floor != ElevatorModel.position) {
+            if (floor < ElevatorModel.position) {
                 System.out.println("GoDown");
                 goDown();
             } else {
@@ -30,11 +30,11 @@ public class ElevatorSimulator {
     }
 
     public void goUp() {
-        model.setCurrentFloor(model.getCurrentFloor()+1);
+        ++ElevatorModel.position;
     }
 
     public void goDown() {
-        model.setCurrentFloor(model.getCurrentFloor()-1);
+        --ElevatorModel.position;
     }
 
     public double getPosition() {
