@@ -134,7 +134,6 @@ class ElevatorRemakeTest {
     void assertGoDown() throws InterruptedException {
         ElevatorModel model = simulator.getModel();
         model.setPosition(5);
-        assertEquals(5, model.getPosition());
 
         simulator.start();
         simulator.setState(State.MOVING_DOWN);
@@ -186,7 +185,6 @@ class ElevatorRemakeTest {
     void assertStopDontMove() throws InterruptedException {
         ElevatorModel model = simulator.getModel();
         model.setPosition(5);
-        assertEquals(5, model.getPosition());
 
         simulator.start();
         simulator.setState(State.MOVING_DOWN);
