@@ -1,6 +1,5 @@
 package ui.view;
 
-import DemoApp;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.component.ElevatorInsidePanel;
@@ -29,7 +28,7 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
     private final ElevatorInsidePanel elevatorInsidePanel;
     private final FloorAndProgressPanel floorAndProgressPanel;
 
-    public DemoView(int nbFloor, DemoController controller, ElevatorModel model) {
+    public DemoView(int nbFloor, int window_width, DemoController controller, ElevatorModel model) {
         super(new GridBagLayout());
         this.controller = controller;
         this.model = model;
@@ -65,7 +64,7 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
         constraints.insets = new Insets(0,0,0,0);
         constraints.gridwidth = 2; // Centre en utilisant les d2 colones pour le panneau
         constraints.ipady = 190;
-        constraints.ipadx = DemoApp.WINDOW_WIDTH;
+        constraints.ipadx = window_width;
         add(this.floorAndProgressPanel, constraints);
     }
 

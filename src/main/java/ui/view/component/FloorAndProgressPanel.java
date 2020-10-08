@@ -1,6 +1,5 @@
 package ui.view.component;
 
-import DemoApp;
 import ui.controller.DemoController;
 import ui.model.Dir;
 import utils.Utils;
@@ -81,7 +80,8 @@ public class FloorAndProgressPanel extends JPanel {
 
         progressBar = new JProgressBar(0, 100);
         progressBar.setMaximum(nbFloor * 10);
-        progressBar.setPreferredSize(new Dimension(DemoApp.WINDOW_WIDTH - 50, 20));
+        // TODO fix width
+        progressBar.setPreferredSize(new Dimension(750, 20));
         progressBar.setValue(0);
 
         panelCenter.add(progressBar);
