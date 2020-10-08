@@ -9,9 +9,15 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Cette classe permet de réaliser des test pour la classe ShortestStrategy
+ */
 class ShortestStrategyTest {
 
 
+    /**
+     * Test dans le cas ou l'ascenseur, situé au 4eme, doit choisir entre l'étage 5 ou 2 en destination.
+     */
     @Test
     void nextRequestSimple() {
         ShortestStrategy strategy = new ShortestStrategy();
@@ -29,6 +35,9 @@ class ShortestStrategyTest {
         assertEquals(strategy.nextRequest(listRequest), request);
     }
 
+    /**
+     * Test plus poussé dans le cas ou l'ascenseur doit prendre quelqu'un sur son chemin
+     */
     @Test
     void nextRequest() {
         ShortestStrategy strategy = new ShortestStrategy();
