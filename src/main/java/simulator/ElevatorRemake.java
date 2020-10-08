@@ -15,8 +15,8 @@ public class ElevatorRemake {
     private Thread thread;
     private Core core;
 
-    public ElevatorRemake(int nbFloor, int speed, ElevatorModel model) {
-        this.model = model;
+    public ElevatorRemake(int nbFloor, int speed) {
+        this.model = new ElevatorModel();
         this.model.state = State.STOPPED;
         this.model.nbFloor = nbFloor;
         this.speed = speed;

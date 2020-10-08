@@ -2,7 +2,6 @@ import command.ControlCommand;
 import command.FIFOStrategy;
 import simulator.ElevatorRemake;
 import ui.controller.DemoController;
-import ui.model.ElevatorModel;
 import ui.view.DemoView;
 
 import javax.swing.*;
@@ -15,23 +14,15 @@ public class DemoApp {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 600;
     public static final int FLOOR_COUNT = 6;
-    public static final int SPEED = 10;
-
-    /**
-     * La fenêtre de l'application de démo
-     */
-    private JFrame window;
+    public static final int SPEED = 3;
 
     public void start() {
-        ElevatorModel model = new ElevatorModel();
-        //ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0,model);
-        ElevatorRemake elevatorRemake = new ElevatorRemake(FLOOR_COUNT, SPEED, model);
-        ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy(), model);
+        ElevatorRemake elevatorRemake = new ElevatorRemake(FLOOR_COUNT, SPEED);
+        ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy(), elevatorRemake.getModel());
         DemoController controller = new DemoController(controlCommand);
-        // TODO simulator.getModel();
-        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());
+        DemoView view = new DemoView(FLOOR_COUNT, controller, elevatorRemake.getModel());
 
-        window = new JFrame(WINDOW_TITLE);
+        JFrame window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
