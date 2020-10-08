@@ -69,7 +69,7 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
     }
 
     @Override
-    public void update(ElevatorModel old, ElevatorModel val) {
+    public void update(ElevatorModel val) {
         //System.out.println("Model update");
     }
 }
