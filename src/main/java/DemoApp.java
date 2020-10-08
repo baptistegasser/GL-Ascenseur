@@ -1,9 +1,6 @@
-package ui;
-
 import command.ControlCommand;
 import command.FIFOStrategy;
 import simulator.ElevatorRemake;
-import simulator.ElevatorSimulator;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.DemoView;

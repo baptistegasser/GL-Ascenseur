@@ -1,6 +1,6 @@
 package ui.view;
 
-import ui.DemoApp;
+import DemoApp;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.component.ElevatorInsidePanel;

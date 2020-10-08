@@ -1,6 +1,6 @@
 package ui.view.component;
 
-import ui.DemoApp;
+import DemoApp;
 import ui.controller.DemoController;
 import ui.model.Dir;
 import utils.Utils;
