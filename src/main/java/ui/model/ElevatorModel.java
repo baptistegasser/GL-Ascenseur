@@ -27,6 +27,10 @@ public class ElevatorModel extends Observable<ElevatorModel> {
         notifyObservers();
     }
 
+    public State getState() {
+        return state;
+    }
+
     public void setState(State state) {
         this.state = state;
         notifyObservers();

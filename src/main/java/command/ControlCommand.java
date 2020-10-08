@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ControlCommand {
-    State stateInEmergency;
+    private State stateInEmergency;
 
-    Request currentRequest;
-    ArrayList<Request> listRequest;
+    private Request currentRequest;
+    private ArrayList<Request> listRequest;
 
-    ElevatorRemake simulator;
+    private ElevatorRemake simulator;
 
-    ElevatorModel model;
+    private ElevatorModel model;
 
-    SatisfactionStrategy strategy;
+    private SatisfactionStrategy strategy;
 
-    Thread thread;
-    ActionRequest action;
+    private Thread thread;
+    private ActionRequest action;
 
     public ControlCommand(ElevatorRemake simulator, SatisfactionStrategy strategy) {
         stateInEmergency = State.STOPPED;
@@ -30,7 +30,33 @@ public class ControlCommand {
         this.simulator = simulator;
         this.strategy = strategy;
         this.model = simulator.getModel();
-        start();
+    }
+
+    /**
+     * Démarre le gestionnaire de requêtes.
+     */
+    public void start() {
+        action = new ActionRequest();
+        thread = new Thread(action);
+        thread.start();
+    }
+
+    /**
+     * Arrête le gestionnaire de requêtes.
+     * Si au bout d'un cours délai le simulateur n'a pas quitté, son thread est interrompu.
+     *
+     * @throws InterruptedException en cas d'échec de l'attente
+     */
+    public void stop() throws InterruptedException {
+        if (thread != null && action != null && action.flag) {
+            action.flag = false;
+            Thread.sleep(500);
+            if (thread.isAlive()) {
+                thread.interrupt();
+            }
+            action = null;
+            thread = null;
+        }
     }
 
     /**
@@ -62,33 +88,6 @@ public class ControlCommand {
         //Permet de ne pas avoir en 2 la request courante
         listRequest.add(request);
 
-    }
-
-    /**
-     * Démarre le gestionnaire de requêtes.
-     */
-    public void start() {
-        action = new ActionRequest();
-        thread = new Thread(action);
-        thread.start();
-    }
-
-    /**
-     * Arrête le gestionnaire de requêtes.
-     * Si au bout d'un cours délai le simulateur n'a pas quitté, son thread est interrompu.
-     *
-     * @throws InterruptedException en cas d'échec de l'attente
-     */
-    public void stop() throws InterruptedException {
-        if (thread != null && action != null && action.flag) {
-            action.flag = false;
-            Thread.sleep(500);
-            if (thread.isAlive()) {
-                thread.interrupt();
-            }
-            action = null;
-            thread = null;
-        }
     }
 
     /***
@@ -129,31 +128,6 @@ public class ControlCommand {
                 }
             }
             System.out.println("Fin Thread");
-        }
-
-        /**
-         * Retourne toutes les requêtes à exécuter pendant un voyage
-         * @param requestType liste de requête à exécuter pendant le voyage
-         * @return
-         */
-        public ArrayList<Request> getListOfAction(RequestType requestType) {
-            ArrayList<Request> returnList = new ArrayList<>();
-
-            for (Request request : listRequest) {
-                if (request.getRequestType() == requestType) {
-                    if (requestType == RequestType.OUTSIDE_UP) {
-                        if (request.getPosition()>model.getPosition() && request.getPosition()<currentRequest.getPosition()){
-                            returnList.add(request);
-                        }
-                    } else if (requestType == RequestType.OUTSIDE_DOWN) {
-                        if (request.getPosition()<model.getPosition() && request.getPosition()>currentRequest.getPosition()){
-                            returnList.add(request);
-                        }
-                    }
-                }
-            }
-
-            return returnList;
         }
 
         /**
@@ -238,6 +212,31 @@ public class ControlCommand {
             }
         }
 
+        /**
+         * Retourne toutes les requêtes à exécuter pendant un voyage
+         * @param requestType liste de requête à exécuter pendant le voyage
+         * @return
+         */
+        public ArrayList<Request> getListOfAction(RequestType requestType) {
+            ArrayList<Request> returnList = new ArrayList<>();
+
+            for (Request request : listRequest) {
+                if (request.getRequestType() == requestType) {
+                    if (requestType == RequestType.OUTSIDE_UP) {
+                        if (request.getPosition()>model.getPosition() && request.getPosition()<currentRequest.getPosition()){
+                            returnList.add(request);
+                        }
+                    } else if (requestType == RequestType.OUTSIDE_DOWN) {
+                        if (request.getPosition()<model.getPosition() && request.getPosition()>currentRequest.getPosition()){
+                            returnList.add(request);
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
+
     }
 
     public Request getCurrentRequest() {
@@ -250,5 +249,9 @@ public class ControlCommand {
 
     public void setCurrentRequest(Request currentRequest) {
         this.currentRequest = currentRequest;
+    }
+
+    public State getStateInEmergency() {
+        return stateInEmergency;
     }
 }
