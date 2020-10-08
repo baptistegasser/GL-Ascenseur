@@ -101,7 +101,7 @@ public class ElevatorRemake {
                         if (!isGoingToStop) {
                             isGoingToStop = true;
                             double p = model.getPosition();
-                            nextFloor = (int)(p - (p%1));
+                            nextFloor = (int)(p + (p%1)-1);
                         }
                     case MOVING_DOWN:
                         down();

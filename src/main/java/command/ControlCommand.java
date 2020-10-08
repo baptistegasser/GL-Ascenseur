@@ -110,16 +110,15 @@ public class ControlCommand {
                         System.out.println("Current : "+ currentRequest);
 
                         //Cas d'une requête Go_To
-                        if (currentRequest.getRequestType() == RequestType.GO_TO) {
-                            System.out.println("GOTO");
+
+                        System.out.println("GOTO");
+                        if (model.getPosition() != currentRequest.getPosition()) {
                             if (model.getPosition() < currentRequest.getPosition()) {
                                 goToUp();
-                            } else if (model.getPosition() > currentRequest.getPosition()) {
+                            } else
                                 goToDown();
-                            } else return;
+                            Thread.sleep(3000);
                         }
-
-                        Thread.sleep(3000);
 
                         listRequest.remove(currentRequest);
                         currentRequest = strategy.nextRequest(listRequest);
@@ -131,6 +130,7 @@ public class ControlCommand {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Fin Thread");
         }
 
         /**
@@ -171,7 +171,7 @@ public class ControlCommand {
             simulator.setState(State.MOVING_UP_STOP_NEXT);
 
             //Attend que l'ascenseur arrive a l'étage
-            while (simulator.getModel().getPosition() == currentRequest.getPosition()) {
+            while (simulator.getModel().getPosition() < currentRequest.getPosition()) {
                 Thread.sleep(250);
             }
         }
@@ -189,16 +189,13 @@ public class ControlCommand {
             }
             simulator.setState(State.MOVING_DOWN_STOP_NEXT);
 
-            while (simulator.getModel().getPosition() == currentRequest.getPosition()) {
+            while (simulator.getModel().getPosition() > currentRequest.getPosition()) {
                 Thread.sleep(250);
             }
+            System.out.println("BYE");
         }
 
     }
-
-    /**
-     * Execute les requêtes en fonction de la stratégie
-     */
 
     public Request getCurrentRequest() {
         return currentRequest;
