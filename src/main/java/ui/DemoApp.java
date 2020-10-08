@@ -1,14 +1,13 @@
 package ui;
 
-import commande.ControlCommand;
-import commande.FIFOStrategy;
+import command.ControlCommand;
+import command.FIFOStrategy;
 import simulator.ElevatorSimulator;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.DemoView;
 
 import javax.swing.*;
-import javax.xml.stream.events.EndElement;
 
 /**
  * Une application de démonstration permettant de présenter le contrôleur commande.

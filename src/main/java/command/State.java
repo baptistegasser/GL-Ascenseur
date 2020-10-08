@@ -1,4 +1,4 @@
-package commande;
+package command;
 
 public enum State {
     STOPPED,

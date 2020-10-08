@@ -1,6 +1,3 @@
-import commande.ControlCommand;
-import simulator.ElevatorSimulator;
-
 import java.io.IOException;
 
 public class Main {

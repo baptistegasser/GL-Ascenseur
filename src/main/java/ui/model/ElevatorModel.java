@@ -1,6 +1,6 @@
 package ui.model;
 
-import commande.State;
+import command.State;
 import utils.Observable;
 
 /**
