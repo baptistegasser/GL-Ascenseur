@@ -79,6 +79,8 @@ public class ElevatorRemake {
                 elapsed = time - last;
                 last = time;
 
+                System.out.println(model.state);
+
                 switch (model.state) {
                     case STOPPED:
                     case EMERGENCY:
@@ -104,6 +106,11 @@ public class ElevatorRemake {
                     case MOVING_DOWN:
                         down();
                         break;
+                }
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }

@@ -95,26 +95,20 @@ public class ControlCommand {
             System.out.println("Démarrage du Thread Action");
 
             while (flag) {
-                //System.out.println(currentRequest);
-                if (currentRequest!=null) {
-                    System.out.println(currentRequest);
+                try {
+                    //System.out.println(currentRequest);
+                    if (currentRequest != null) {
+                        System.out.println(currentRequest);
 
-                    //Cas d'une requête Go_To
-                    if (currentRequest.getRequestType() == RequestType.GO_TO) {
-
-                        if (model.getPosition() < currentRequest.getPosition()) {
+                        //Cas d'une requête Go_To
+                        if (currentRequest.getRequestType() == RequestType.GO_TO) {
                             System.out.println("GOTO");
-                            System.out.println("Up");
-                            //stateRequestsForStop = State.MOVING_UP_STOP_NEXT;
-                            //requests = getListOfAction(RequestType.OUTSIDE_UP);
-                            simulator.setState(State.MOVING_UP);
-                        } else if (model.getPosition() > currentRequest.getPosition()) {
-                            System.out.println("Down");
-                            //stateRequestsForStop = State.MOVING_DOWN_STOP_NEXT;
-                            //requests = getListOfAction(RequestType.OUTSIDE_DOWN);
-                            simulator.setState(State.MOVING_DOWN);
-                        } else return;
-                    }
+                            if (model.getPosition() < currentRequest.getPosition()) {
+                                goToUp();
+                            } else if (model.getPosition() > currentRequest.getPosition()) {
+                                goToDown();
+                            } else return;
+                        }
                      /*if (requests.size() > 0) {
                     //System.out.println("Requete : " + requests);
 
@@ -126,12 +120,16 @@ public class ControlCommand {
                             }
                         }
                     }*/
-                    listRequest.remove(currentRequest);
-                    currentRequest = strategy.nextRequest(listRequest);
-                }
-                try {
+
+                        Thread.sleep(3000);
+
+                        listRequest.remove(currentRequest);
+                        currentRequest = strategy.nextRequest(listRequest);
+                    }
+
                     Thread.sleep(250);
-                } catch (InterruptedException e) {
+
+                }catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -158,6 +156,42 @@ public class ControlCommand {
             System.out.println(returnList);
 
             return returnList;
+        }
+
+        public void goToUp() throws InterruptedException {
+            System.out.println("Up");
+            //stateRequestsForStop = State.MOVING_UP_STOP_NEXT;
+            //requests = getListOfAction(RequestType.OUTSIDE_UP);
+
+            simulator.setState(State.MOVING_UP);
+            //Attend que la cabine arrive pour l'arrêt aux prochain
+            while (simulator.getModel().getPosition()<currentRequest.getPosition()-1) {
+                //System.out.println("Position : "+ simulator.getModel().getPosition());
+                Thread.sleep(250);
+            }
+            simulator.setState(State.MOVING_UP_STOP_NEXT);
+
+            //Attend que l'ascenseur arrive a l'étage
+            while (simulator.getModel().getPosition() == currentRequest.getPosition()) {
+                Thread.sleep(250);
+            }
+        }
+
+        public void goToDown() throws InterruptedException {
+            System.out.println("Down");
+            //stateRequestsForStop = State.MOVING_DOWN_STOP_NEXT;
+            //requests = getListOfAction(RequestType.OUTSIDE_DOWN);
+            simulator.setState(State.MOVING_DOWN);
+
+            while (simulator.getModel().getPosition()>currentRequest.getPosition()+1) {
+                //System.out.println("Position : "+ simulator.getModel().getPosition());
+                Thread.sleep(250);
+            }
+            simulator.setState(State.MOVING_DOWN_STOP_NEXT);
+
+            while (simulator.getModel().getPosition() == currentRequest.getPosition()) {
+                Thread.sleep(250);
+            }
         }
 
     }
