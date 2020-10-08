@@ -159,7 +159,7 @@ public class FloorAndProgressPanel extends JPanel {
      *
      * @param floor la nouvelle position exprimé sous forme d'étage, les flottants sont possible (ie: étage 5.8)
      */
-    private void updateProgress(double floor) {
+    public void updateProgress(double floor) {
         if (floor < 0 || floor > nbFloor) {
             return;
         }
