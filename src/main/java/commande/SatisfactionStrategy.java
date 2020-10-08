@@ -1,6 +1,6 @@
 package commande;
 
-import controller.Request;
+import commande.request.Request;
 
 import java.util.ArrayList;
 

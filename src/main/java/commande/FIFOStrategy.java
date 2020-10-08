@@ -1,10 +1,8 @@
 package commande;
 
-import controller.Request;
-import controller.RequestType;
+import commande.request.Request;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FIFOStrategy implements SatisfactionStrategy{
     @Override
