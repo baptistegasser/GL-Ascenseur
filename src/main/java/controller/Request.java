@@ -16,5 +16,13 @@ public class Request {
     public int getFloor() {
         return floor;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "requestType=" + requestType +
+                ", floor=" + floor +
+                '}';
+    }
 }
 

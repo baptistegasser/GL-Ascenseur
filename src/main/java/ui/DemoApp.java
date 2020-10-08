@@ -1,5 +1,8 @@
 package ui;
 
+import commande.ControlCommand;
+import commande.FIFOStrategy;
+import simulator.ElevatorSimulator;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.DemoView;
@@ -14,6 +17,7 @@ public class DemoApp {
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 600;
     public static final int FLOOR_COUNT = 6;
+    public static final int SPEED = 10;
 
     /**
      * La fenêtre de l'application de démo
@@ -21,7 +25,9 @@ public class DemoApp {
     private JFrame window;
 
     public void start() {
-        DemoController controller = new DemoController();
+        ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0);
+        ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy());
+        DemoController controller = new DemoController(controlCommand);
         // TODO simulator.getModel();
         DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel(0));
 

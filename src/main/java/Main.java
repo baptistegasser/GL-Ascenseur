@@ -9,7 +9,7 @@ public class Main {
 
         ElevatorSimulator simulator = new ElevatorSimulator(5, 20, 0);
 
-        ControlCommand controlCommand = new ControlCommand(simulator);
+        //ControlCommand controlCommand = new ControlCommand(simulator);
 
         //ElevatorController controller = new ElevatorController(controlCommand);
     }

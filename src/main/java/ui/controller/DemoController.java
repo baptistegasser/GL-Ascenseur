@@ -1,5 +1,8 @@
 package ui.controller;
 
+import commande.ControlCommand;
+import controller.Request;
+import controller.RequestType;
 import ui.model.Dir;
 import ui.view.DemoView;
 
@@ -8,6 +11,13 @@ import ui.view.DemoView;
  * @see DemoView
  */
 public class DemoController {
+
+    ControlCommand controlCommand;
+
+    public DemoController(ControlCommand controlCommand) {
+        this.controlCommand = controlCommand;
+    }
+
     /**
      * Fonction appelé lors ce que l'on souhaite arrêter l'ascenseur en urgence.
      */
@@ -21,6 +31,9 @@ public class DemoController {
      * @param floor l'étage de destination souhaité
      */
     public void handleFloorRequestInside(int floor) {
+        Request request = new Request(RequestType.GO_TO, floor);
+
+        controlCommand.addRequest(request);
         System.out.println("Request to go to floor " + floor);
     }
 

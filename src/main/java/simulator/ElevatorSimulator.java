@@ -19,8 +19,10 @@ public class ElevatorSimulator {
     public void goTo(int floor) {
         while (floor != model.getCurrentFloor()) {
             if (floor < model.getCurrentFloor()) {
+                System.out.println("GoDown");
                 goDown();
             } else {
+                System.out.println("GoUp");
                 goUp();
             }
         }
