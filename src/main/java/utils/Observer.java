@@ -11,5 +11,5 @@ public interface Observer<T> {
      *
      * @param o l'objet en question.
      */
-    void update(T o);
+    void update(T old, T val);
 }

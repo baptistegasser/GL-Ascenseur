@@ -14,8 +14,11 @@ public abstract class Observable<T> {
      */
     private final ArrayList<Observer<T>> observers;
 
+    private T old;
+
     public Observable() {
         this.observers = new ArrayList<>();
+        this.old = (T) this;
     }
 
     /**
@@ -34,7 +37,8 @@ public abstract class Observable<T> {
     @SuppressWarnings("unchecked")
     protected void notifyObservers() {
         for (Observer<T> o : observers) {
-            o.update((T)this);
+            o.update(old, (T)this);
         }
+        old = (T) this;
     }
 }
