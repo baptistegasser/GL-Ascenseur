@@ -15,11 +15,12 @@ public class ElevatorRemake {
     private Thread thread;
     private Core core;
 
-    public ElevatorRemake(int nbFloor, int speed) {
-        this.model = new ElevatorModel();
+    public ElevatorRemake(int nbFloor, int speed, ElevatorModel model) {
+        this.model = model;
         this.model.state = State.STOPPED;
         this.model.nbFloor = nbFloor;
         this.speed = speed;
+        this.start();
     }
 
     public void setState(State state) {

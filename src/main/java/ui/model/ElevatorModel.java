@@ -14,6 +14,7 @@ public class ElevatorModel extends Observable<ElevatorModel> {
 
     public ElevatorModel() {
         position = 0;
+        state = State.STOPPED;
     }
 
     public void setNbFloor(int nbFloor) {

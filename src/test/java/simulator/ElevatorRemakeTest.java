@@ -16,7 +16,8 @@ class ElevatorRemakeTest {
 
     @BeforeEach
     void setUp() {
-        simulator = new ElevatorRemake(8, 2);
+        ElevatorModel model = new ElevatorModel();
+        simulator = new ElevatorRemake(8, 2, model);
     }
 
     @AfterEach

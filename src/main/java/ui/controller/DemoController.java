@@ -48,6 +48,12 @@ public class DemoController {
      * @param floor l'étage d'où la requête émane
      */
     public void handleFloorRequestOutside(Dir dir, int floor) {
+        Request request = null;
+        if (dir == Dir.DOWN) request = new Request(RequestType.OUTSIDE_DOWN, floor);
+        else if (dir == Dir.UP) request = new Request(RequestType.OUTSIDE_UP, floor);
+
+        controlCommand.addRequest(request);
+
         System.out.println("Request for the elevator to come at floor " + floor + " to go " + dir);
     }
 
@@ -58,7 +64,6 @@ public class DemoController {
         Request request = new Request(RequestType.STOP_URGENCY, -1);
 
         controlCommand.addRequest(request);
-
         System.out.println("Asked to exit from emergency stop");
     }
 }
