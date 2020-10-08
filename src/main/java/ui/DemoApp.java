@@ -8,6 +8,7 @@ import ui.model.ElevatorModel;
 import ui.view.DemoView;
 
 import javax.swing.*;
+import javax.xml.stream.events.EndElement;
 
 /**
  * Une application de démonstration permettant de présenter le contrôleur commande.
@@ -25,8 +26,9 @@ public class DemoApp {
     private JFrame window;
 
     public void start() {
-        ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0);
-        ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy());
+        ElevatorModel model = new ElevatorModel();
+        ElevatorSimulator elevatorSimulator = new ElevatorSimulator(FLOOR_COUNT, SPEED, 0,model);
+        ControlCommand controlCommand = new ControlCommand(elevatorSimulator, new FIFOStrategy(),model);
         DemoController controller = new DemoController(controlCommand);
         // TODO simulator.getModel();
         DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());

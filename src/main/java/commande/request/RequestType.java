@@ -8,5 +8,6 @@ public enum RequestType {
     OUTSIDE_UP,
     OUTSIDE_DOWN,
     STOP_URGENCY,
+    URGENCY,
     PASS
 }

@@ -2,7 +2,7 @@ package commande.request;
 
 public class Request {
     RequestType requestType;
-    double position; // null si arret d'urgence, sinon floor de destination
+    double position; // -1 si arret d'urgence, sinon floor de destination
 
     public Request(RequestType requestType, double floor) {
         this.requestType = requestType;

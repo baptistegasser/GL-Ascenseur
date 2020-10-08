@@ -1,5 +1,6 @@
-package commande;
+package command;
 
+import commande.ShortestStrategy;
 import commande.request.Request;
 import commande.request.RequestType;
 import org.junit.jupiter.api.Test;

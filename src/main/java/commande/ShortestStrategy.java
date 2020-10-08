@@ -28,7 +28,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         // Si la liste de requete et vite, ou si elle contient une requete d'arret d'urgence on return null
         if (fifo.isEmpty())  return null;
         for (Request request : fifo) {
-            if (request.getRequestType() == RequestType.STOP_URGENCY) {
+            if (request.getRequestType() == RequestType.URGENCY) {
                 //fifo.remove(request);
                 return null;
             }
