@@ -1,6 +1,6 @@
-package commande;
+package command;
 
-import commande.request.Request;
+import command.request.Request;
 
 import java.util.ArrayList;
 

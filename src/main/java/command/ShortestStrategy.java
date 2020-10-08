@@ -1,7 +1,7 @@
-package commande;
+package command;
 
-import commande.request.Request;
-import commande.request.RequestType;
+import command.request.Request;
+import command.request.RequestType;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package commande.request;
+package command.request;
 
 /**
  * Enumère tous les types de requètes nécessaire

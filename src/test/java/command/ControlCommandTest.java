@@ -1,7 +1,7 @@
 package command;
 
-import commande.ControlCommand;
-import commande.FIFOStrategy;
+import command.ControlCommand;
+import command.FIFOStrategy;
 import org.junit.jupiter.api.Test;
 import simulator.ElevatorSimulator;
 import ui.model.ElevatorModel;

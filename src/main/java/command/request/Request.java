@@ -1,4 +1,4 @@
-package commande.request;
+package command.request;
 
 public class Request {
     RequestType requestType;

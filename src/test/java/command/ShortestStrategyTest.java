@@ -1,8 +1,8 @@
 package command;
 
-import commande.ShortestStrategy;
-import commande.request.Request;
-import commande.request.RequestType;
+import command.ShortestStrategy;
+import command.request.Request;
+import command.request.RequestType;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
