@@ -50,7 +50,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         }
 
         // Ici on traite les requêtes qui on été faites depuis l'exterieur de l'ascenseur
-        //TODO Ici c'est la dernière requete en OUTSIDE qui sera prise en compte, et non la plus proche. A fix ?
+        //TODO Ici c'est la première requete en OUTSIDE qui sera prise en compte, et non la plus proche. A fix ?
         for (Request request : fifo) {
             // si c'est une requete exterieur, on la traite
             if (request.getRequestType() == RequestType.OUTSIDE_UP || request.getRequestType() == RequestType.OUTSIDE_DOWN) {
@@ -62,6 +62,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                         if (request.getRequestType() == RequestType.OUTSIDE_DOWN) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
+                            break;
                         }
                     }
                 }
@@ -73,6 +74,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
                         if (request.getRequestType() == RequestType.OUTSIDE_UP) {
                             //etageToGo = request.getFloor();
                             removeRequest = request;
+                            break;
                         }
                     }
                 }
