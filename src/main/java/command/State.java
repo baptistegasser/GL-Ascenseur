@@ -1,5 +1,8 @@
-package commande;
+package command;
 
+/**
+ * Etat courant de l'ascenseur (en arrêt d'urgence, arrêté, en mouvement ...)
+ */
 public enum State {
     STOPPED,
     EMERGENCY,

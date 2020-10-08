@@ -1,5 +1,8 @@
 package ui.controller;
 
+import command.ControlCommand;
+import command.request.Request;
+import command.request.RequestType;
 import ui.model.Dir;
 import ui.view.DemoView;
 
@@ -8,11 +11,20 @@ import ui.view.DemoView;
  * @see DemoView
  */
 public class DemoController {
+
+    ControlCommand controlCommand;
+
+    public DemoController(ControlCommand controlCommand) {
+        this.controlCommand = controlCommand;
+    }
+
     /**
      * Fonction appelé lors ce que l'on souhaite arrêter l'ascenseur en urgence.
      */
     public void handleEmergencyStopRequest() {
-        System.out.println("Emergency stop request");
+        Request request = new Request(RequestType.URGENCY, -1);
+
+        controlCommand.addRequest(request);
     }
 
     /**
@@ -21,7 +33,9 @@ public class DemoController {
      * @param floor l'étage de destination souhaité
      */
     public void handleFloorRequestInside(int floor) {
-        System.out.println("Request to go to floor " + floor);
+        Request request = new Request(RequestType.GO_TO, floor);
+
+        controlCommand.addRequest(request);
     }
 
     /**
@@ -31,13 +45,19 @@ public class DemoController {
      * @param floor l'étage d'où la requête émane
      */
     public void handleFloorRequestOutside(Dir dir, int floor) {
-        System.out.println("Request for the elevator to come at floor " + floor + " to go " + dir);
+        Request request = null;
+        if (dir == Dir.DOWN) request = new Request(RequestType.OUTSIDE_DOWN, floor);
+        else if (dir == Dir.UP) request = new Request(RequestType.OUTSIDE_UP, floor);
+
+        controlCommand.addRequest(request);
     }
 
     /**
      * Fonction appelé lorsqu'un technicien remet l'ascenseur en marche.
      */
     public void handleEmergencyStopExit() {
-        System.out.println("Asked to exit from emergency stop");
+        Request request = new Request(RequestType.STOP_URGENCY, -1);
+
+        controlCommand.addRequest(request);
     }
 }

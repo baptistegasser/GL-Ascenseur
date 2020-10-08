@@ -1,4 +1,4 @@
-package controller;
+package command.request;
 
 /**
  * Enumère tous les types de requètes nécessaire
@@ -6,7 +6,7 @@ package controller;
 public enum RequestType {
     GO_TO,
     OUTSIDE_UP,
-    OUTSITE_DOWN,
+    OUTSIDE_DOWN,
     STOP_URGENCY,
-    PASS
+    URGENCY
 }

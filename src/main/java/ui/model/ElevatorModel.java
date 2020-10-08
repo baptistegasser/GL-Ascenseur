@@ -1,5 +1,6 @@
 package ui.model;
 
+import command.State;
 import utils.Observable;
 
 /**
@@ -9,18 +10,29 @@ import utils.Observable;
 public class ElevatorModel extends Observable<ElevatorModel> {
     public int nbFloor;
     public double position;
-    public Object state;
-    int currentFloor;
+    public State state;
 
-    public ElevatorModel(int currentFloor) {
-        this.currentFloor = currentFloor;
+    public ElevatorModel() {
+        position = 0;
+        state = State.STOPPED;
     }
 
-    public int getCurrentFloor() {
-        return currentFloor;
+    public void setNbFloor(int nbFloor) {
+        this.nbFloor = nbFloor;
+        notifyObservers();
     }
 
-    public void setCurrentFloor(int currentFloor) {
-        this.currentFloor = currentFloor;
+    public void setPosition(double position) {
+        this.position = position;
+        notifyObservers();
+    }
+
+    public void setState(State state) {
+        this.state = state;
+        notifyObservers();
+    }
+
+    public double getPosition() {
+        return position;
     }
 }
