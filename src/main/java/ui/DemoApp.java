@@ -1,6 +1,7 @@
 package ui;
 
 import ui.controller.DemoController;
+import ui.model.ElevatorModel;
 import ui.view.DemoView;
 
 import javax.swing.*;
@@ -21,7 +22,8 @@ public class DemoApp {
 
     public void start() {
         DemoController controller = new DemoController();
-        DemoView view = new DemoView(FLOOR_COUNT, controller);
+        // TODO simulator.getModel();
+        DemoView view = new DemoView(FLOOR_COUNT, controller, new ElevatorModel());
 
         window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
