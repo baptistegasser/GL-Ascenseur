@@ -13,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class ElevatorRemakeTest {
     private ElevatorRemake simulator;
+    private ElevatorModel model;
 
     @BeforeEach
     void setUp() {
         simulator = new ElevatorRemake(8, 2);
+        model = simulator.getModel();
     }
 
     @AfterEach
@@ -51,7 +53,6 @@ class ElevatorRemakeTest {
     @Test
     void setState() {
         // Check le model de base
-        ElevatorModel model = simulator.getModel();
         assertEquals(0, model.getPosition());
         assertEquals(8, model.nbFloor);
         assertEquals(State.STOPPED, model.state);
@@ -65,7 +66,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void setStateWhenRunning() {
-        ElevatorModel model = simulator.getModel();
         assertEquals(State.STOPPED, model.state);
 
         simulator.start();
@@ -81,7 +81,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void assertGoUp() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         assertEquals(0, model.getPosition());
 
         simulator.start();
@@ -97,7 +96,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void willStopWillGoingUp() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(4);
 
         simulator.start();
@@ -116,7 +114,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void assertEmergencyStopIfTooHigh() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(7.75);
 
         simulator.start();
@@ -132,7 +129,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void assertGoDown() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(5);
 
         simulator.start();
@@ -148,7 +144,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void willStopWillGoingDown() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(4);
 
         simulator.start();
@@ -163,11 +158,25 @@ class ElevatorRemakeTest {
     }
 
     /**
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    void willGoDownAndStopOneFloor() throws InterruptedException {
+        model.setPosition(3);
+
+        simulator.start();
+        simulator.setState(State.MOVING_DOWN_STOP_NEXT);
+        Thread.sleep(2000);
+        assertEquals(2, model.position);
+        assertEquals(State.STOPPED, model.state);
+    }
+
+    /**
      * S'assure que si l'ascenseur descend trop bas, il s'arrête en urgence.
      */
     @Test
     void assertEmergencyStopIfTooLow() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(0.25);
 
         simulator.start();
@@ -183,7 +192,6 @@ class ElevatorRemakeTest {
      */
     @Test
     void assertStopDontMove() throws InterruptedException {
-        ElevatorModel model = simulator.getModel();
         model.setPosition(5);
 
         simulator.start();
@@ -194,5 +202,32 @@ class ElevatorRemakeTest {
         double pos = simulator.getModel().position;
         Thread.sleep(500);
         assertEquals(pos, simulator.getModel().position);
+    }
+
+    /**
+     * S'assure que si l'on relance après une urgence tout cela fonctionne
+     */
+    @Test
+    void assertRecoverFromEmergency() throws InterruptedException {
+        model.setPosition(5);
+
+        simulator.start();
+        simulator.setState(State.MOVING_DOWN);
+
+        // Wait and put in emergency
+        Thread.sleep(1000);
+        simulator.setState(State.EMERGENCY);
+        model = simulator.getModel();
+
+        // Wait again to check not moving anymore
+        Thread.sleep(100);
+        assertEquals(model, simulator.getModel());
+
+        // Try to relaunch with going up and stopping as soon as possible
+        simulator.setState(State.MOVING_UP_STOP_NEXT);
+
+        // Wait one more time an check correctly moved again and stopped
+        Thread.sleep(1200);
+        assertEquals(State.STOPPED, model.state);
     }
 }
