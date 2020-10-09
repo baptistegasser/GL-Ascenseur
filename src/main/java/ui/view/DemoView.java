@@ -1,5 +1,6 @@
 package ui.view;
 
+import command.State;
 import ui.controller.DemoController;
 import ui.model.ElevatorModel;
 import ui.view.component.ElevatorInsidePanel;
@@ -52,9 +53,9 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.insets = new Insets(0,150,20,0);
-        constraints.ipady = 175;
-        constraints.ipadx = 175;
+        constraints.insets = new Insets(0,0,20,0);
+        constraints.ipady = 100;
+        constraints.ipadx = 100;
         add(this.elevatorInsidePanel, constraints);
 
         // Ajout du panneau affichant la position et les boutons externes
@@ -69,8 +70,13 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
     }
 
     @Override
-    public void update(ElevatorModel val) {
-        this.elevatorStatePanel.setState(val.state);
-        this.floorAndProgressPanel.updateProgress(val.position);
+    public void update(ElevatorModel model) {
+        this.elevatorStatePanel.setState(model.state);
+        this.floorAndProgressPanel.updateProgress(model.position);
+
+        if (model.state == State.STOPPED) {
+            elevatorInsidePanel.turnBacklightOff((int) model.position);
+            floorAndProgressPanel.turnBacklightOff((int) model.position);
+        }
     }
 }

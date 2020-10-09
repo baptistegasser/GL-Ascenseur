@@ -3,6 +3,7 @@ package ui.view.component;
 import command.State;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Une représentation textuelle de l'état actuel de l'ascenseur.
@@ -11,10 +12,21 @@ public class ElevatorStatePanel extends JPanel {
     private final JLabel stateLbl;
 
     public ElevatorStatePanel() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridLayout(0, 1, 0, 0));
 
-        this.add(new JLabel("État de l'ascenseur"));
+        // On fixe la taille minimum de ce panneau à la taille de la plus grande string affiché en fonction du Font
+        Dimension size = new Dimension(0,0);
+        FontMetrics metrics = this.getFontMetrics(this.getFont());
+        size.width = metrics.stringWidth("En descente avec arrêt au prochain étage");
+        this.setMinimumSize(size);
+        this.setMaximumSize(size);
+
+        JLabel info = new JLabel("État de l'ascenseur");
+        info.setHorizontalAlignment(JLabel.CENTER);
+        this.add(info);
+
         this.stateLbl = new JLabel();
+        this.stateLbl.setHorizontalAlignment(JLabel.CENTER);
         this.add(stateLbl);
 
         setState(State.STOPPED);

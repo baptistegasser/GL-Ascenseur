@@ -33,7 +33,7 @@ public class FloorAndProgressPanel extends JPanel {
         this.nbFloor = nbFloor;
         this.controller = controller;
         this.buttonPanels = new HashMap<>();
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         JPanel panelTop = generateTopPanel();
         JPanel panelCenter = generateCenterPanel();
@@ -43,7 +43,6 @@ public class FloorAndProgressPanel extends JPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(panelTop);
         panel.add(panelCenter);
-        panel.add(Box.createVerticalStrut(10));
         panel.add(panelBottom);
 
         JScrollPane root = new JScrollPane(panel);
@@ -57,11 +56,10 @@ public class FloorAndProgressPanel extends JPanel {
      * @return le panneau correctement configuré
      */
     private JPanel generateTopPanel() {
-        JPanel panelTop = new JPanel(new FlowLayout());
-        panelTop.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         for (int i = 0; i < nbFloor; i++) {
-            JPanel paneButton = generateCallButton(Dir.DOWN, i);
+            JPanel paneButton = generateCallButton(Dir.UP, i);
             buttonPanels.put(Dir.UP.toString() + i, paneButton);
             panelTop.add(paneButton);
         }
@@ -75,13 +73,12 @@ public class FloorAndProgressPanel extends JPanel {
      * @return le panneau correctement configuré
      */
     private JPanel generateCenterPanel() {
-        JPanel panelCenter = new JPanel();
-        panelCenter.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         progressBar = new JProgressBar(0, 100);
         progressBar.setMaximum(nbFloor * 10);
         // TODO fix width
-        progressBar.setPreferredSize(new Dimension(750, 20));
+        progressBar.setPreferredSize(new Dimension((nbFloor+1)*30 + nbFloor*55, 20));
         progressBar.setValue(0);
 
         panelCenter.add(progressBar);
@@ -94,16 +91,17 @@ public class FloorAndProgressPanel extends JPanel {
      * @return le panneau correctement configuré
      */
     private JPanel generateBottomPanel() {
-        JPanel panelBottom = new JPanel(new FlowLayout());
-        panelBottom.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel panelBottom = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JPanel space = new JPanel();
-        space.setBorder(new EmptyBorder(0, 156, 0, 0));
+        space.setMinimumSize(new Dimension(80, 0));
+        space.setPreferredSize(new Dimension(80, 0));
+        space.setMaximumSize(new Dimension(80, 0));
         panelBottom.add(space);
 
         for (int i = 1; i <= nbFloor; i++) {
-            JPanel paneButton = generateCallButton(Dir.UP, i);
-            buttonPanels.put(Dir.UP.toString() + i, paneButton);
+            JPanel paneButton = generateCallButton(Dir.DOWN, i);
+            buttonPanels.put(Dir.DOWN.toString() + i, paneButton);
             panelBottom.add(paneButton);
         }
 
@@ -167,17 +165,21 @@ public class FloorAndProgressPanel extends JPanel {
     }
 
     /**
-     * TODO integration or remove
+     * Retire la couleur d'un bouton précédemment activé.
      */
-    private void removeColor(Dir dir, int floor) {
-        String name = dir.toString() + floor;
-        JPanel panel = buttonPanels.get(name);
-        if (panel == null) return;
+    public void turnBacklightOff(int floor) {
+        String up = Dir.UP.toString() + floor;
+        String down = Dir.DOWN.toString() + floor;
 
-        for (Component c : panel.getComponents()) {
-            if (c != null && c.getName().equals("btn")) {
-                c.setBackground(null);
-                break;
+        for (String name : new String[]{up, down}) {
+            JPanel panel = buttonPanels.get(name);
+            if (panel == null) return;
+
+            for (Component c : panel.getComponents()) {
+                if (c != null && c.getName().equals("btn")) {
+                    c.setBackground(null);
+                    break;
+                }
             }
         }
     }
