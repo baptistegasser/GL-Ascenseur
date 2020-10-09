@@ -17,8 +17,6 @@ public class ControlCommand {
 
     private ElevatorSimulator simulator;
 
-    private ElevatorModel model;
-
     private SatisfactionStrategy strategy;
 
     private Thread thread;
@@ -30,7 +28,6 @@ public class ControlCommand {
         listRequest = new ArrayList<>();
         this.simulator = simulator;
         this.strategy = strategy;
-        this.model = simulator.getModel();
     }
 
     /**
@@ -108,21 +105,18 @@ public class ControlCommand {
                     if (currentRequest != null) {
                         System.out.println("Requête courante : "+ currentRequest);
 
-                        if (model.getPosition() != currentRequest.getPosition()) {
-                            if (model.getPosition() < currentRequest.getPosition()) {
+                        if (simulator.getModel().getPosition() != currentRequest.getPosition()) {
+                            if (simulator.getModel().getPosition() < currentRequest.getPosition()) {
                                 goToUp();
                             } else{
                                 goToDown();
                             }
                             System.out.println("ARRIVÉ AU "+simulator.getModel().getPosition());
                             stopRequests = new ArrayList<>();
-                            listRequest.remove(currentRequest);
-                            currentRequest = strategy.nextRequest(listRequest);
                             Thread.sleep(3000);
-                        } else {
-                            listRequest.remove(currentRequest);
-                            currentRequest = strategy.nextRequest(listRequest);
                         }
+                        listRequest.remove(currentRequest);
+                        currentRequest = strategy.nextRequest(listRequest);
                     }
 
                     Thread.sleep(250);
@@ -217,31 +211,10 @@ public class ControlCommand {
             }
         }
 
-
-        /*public ArrayList<Request> getListOfAction(RequestType requestType) {
-            ArrayList<Request> returnList = new ArrayList<>();
-
-            for (Request request : listRequest) {
-                if (request.getRequestType() == requestType || request.getRequestType() == RequestType.GO_TO) {
-                    if (requestType == RequestType.OUTSIDE_UP) {
-                        if (request.getPosition()>model.getPosition() && request.getPosition()<currentRequest.getPosition()){
-                            returnList.add(request);
-                        }
-                    } else if (requestType == RequestType.OUTSIDE_DOWN) {
-                        if (request.getPosition()<model.getPosition() && request.getPosition()>currentRequest.getPosition()){
-                            returnList.add(request);
-                        }
-                    }
-                }
-            }
-
-            return returnList;
-        }*/
-
         public ArrayList<Request> getStopRequests() {
             return stopRequests;
         }
-    }
+    } // Action
 
     public Request getCurrentRequest() {
         return currentRequest;
