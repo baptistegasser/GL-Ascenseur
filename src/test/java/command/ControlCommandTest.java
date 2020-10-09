@@ -204,7 +204,8 @@ public class ControlCommandTest {
 
         // Verification pendant le quatrième voyage entre 4 et 2
 
-        assertEquals(controlCommand.getAction().getStopRequests().size(), 0);
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 1);
+        assertEquals(controlCommand.getAction().getStopRequests().get(0), request3);
         assertEquals(controlCommand.getCurrentRequest(), request3);
         assertEquals(controlCommand.getListRequest().size(), 2);
         Thread.sleep(10000);
@@ -212,7 +213,8 @@ public class ControlCommandTest {
 
         // Verification pendant le cinquième voyage entre 2 et 0
 
-        assertEquals(controlCommand.getAction().getStopRequests().size(), 0);
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 1);
+        assertEquals(controlCommand.getAction().getStopRequests().get(0), request3);
         assertEquals(controlCommand.getCurrentRequest(), request5);
         assertEquals(controlCommand.getListRequest().size(), 1);
         Thread.sleep(8000);

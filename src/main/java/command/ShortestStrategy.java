@@ -106,7 +106,34 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         }*/
 
         if (listRequest.size() > 0) {
-            return listRequest.get(0);
+            int minFloor = 100;
+            Request requestFinal = null;
+            boolean haveGoto = false;
+
+            for (Request request : listRequest) {
+                if (request.getRequestType() == RequestType.GO_TO) {
+                    if (haveGoto) {
+                        int floorDiff = (int) Math.abs(request.getPosition() - model.getPosition());
+                        if (floorDiff < minFloor) {
+                            requestFinal = request;
+                            minFloor = floorDiff;
+                        }
+                    } else {
+                        haveGoto = true;
+                        requestFinal = request;
+                        minFloor = (int) Math.abs(request.getPosition() - model.getPosition());
+                    }
+                } else {
+                    if (!haveGoto) {
+                        int floorDiff = (int) Math.abs(request.getPosition() - model.getPosition());
+                        if (floorDiff < minFloor) {
+                            requestFinal = request;
+                            minFloor = floorDiff;
+                        }
+                    }
+                }
+            }
+            return requestFinal;
         } else {
             System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
             return null;
