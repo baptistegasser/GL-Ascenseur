@@ -5,7 +5,7 @@ import command.request.RequestType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import simulator.ElevatorRemake;
+import simulator.ElevatorSimulator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ControlCommandTest {
 
-    ElevatorRemake simulator;
+    ElevatorSimulator simulator;
     ControlCommand controlCommand;
 
     @BeforeEach
     void setUp() {
-        simulator = new ElevatorRemake(6,3);
+        simulator = new ElevatorSimulator(6,3);
         controlCommand = new ControlCommand(simulator, new ShortestStrategy(simulator.getModel()));
     }
 

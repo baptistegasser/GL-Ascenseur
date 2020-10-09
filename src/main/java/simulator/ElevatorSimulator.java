@@ -1,12 +1,12 @@
 package simulator;
 
 import command.State;
-import ui.model.ElevatorModel;
+import command.model.ElevatorModel;
 
 /**
  * Un simulateur d'ascenseur utilisable à des fin de démonstration.
  */
-public class ElevatorRemake {
+public class ElevatorSimulator {
     /**
      * Vitesse de l'ascenseur en second/étage
      */
@@ -15,7 +15,7 @@ public class ElevatorRemake {
     private Thread thread;
     private SimulatorRunnable runnable;
 
-    public ElevatorRemake(int nbFloor, int speed) {
+    public ElevatorSimulator(int nbFloor, int speed) {
         this.model = new ElevatorModel();
         this.model.state = State.STOPPED;
         this.model.nbFloor = nbFloor;

@@ -1,11 +1,11 @@
 package command;
 
 import command.ShortestStrategy;
+import command.model.ElevatorModel;
 import command.request.Request;
 import command.request.RequestType;
 import org.junit.jupiter.api.Test;
-import simulator.ElevatorRemake;
-import ui.model.ElevatorModel;
+import simulator.ElevatorSimulator;
 
 import java.util.ArrayList;
 
@@ -42,8 +42,8 @@ class ShortestStrategyTest {
      */
     @Test
     void nextRequest() {
-        ElevatorRemake elevatorRemake = new ElevatorRemake(6, 3);
-        ShortestStrategy strategy = new ShortestStrategy(elevatorRemake.getModel());
+        ElevatorSimulator ElevatorSimulator = new ElevatorSimulator(6, 3);
+        ShortestStrategy strategy = new ShortestStrategy(ElevatorSimulator.getModel());
         ArrayList<Request> listRequest = new ArrayList<>();
 
         assertNull(strategy.nextRequest(listRequest));

@@ -2,8 +2,8 @@ package command;
 
 import command.request.Request;
 import command.request.RequestType;
-import simulator.ElevatorRemake;
-import ui.model.ElevatorModel;
+import simulator.ElevatorSimulator;
+import command.model.ElevatorModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,7 @@ public class ControlCommand {
     private Request currentRequest;
     private ArrayList<Request> listRequest;
 
-    private ElevatorRemake simulator;
+    private ElevatorSimulator simulator;
 
     private ElevatorModel model;
 
@@ -23,7 +23,7 @@ public class ControlCommand {
     private Thread thread;
     private ActionRequest action;
 
-    public ControlCommand(ElevatorRemake simulator, SatisfactionStrategy strategy) {
+    public ControlCommand(ElevatorSimulator simulator, SatisfactionStrategy strategy) {
         stateInEmergency = State.STOPPED;
         currentRequest = null;
         listRequest = new ArrayList<>();

@@ -2,7 +2,7 @@ package ui.view;
 
 import command.State;
 import ui.controller.DemoController;
-import ui.model.ElevatorModel;
+import command.model.ElevatorModel;
 import ui.view.component.ElevatorInsidePanel;
 import ui.view.component.ElevatorStatePanel;
 import ui.view.component.FloorAndProgressPanel;

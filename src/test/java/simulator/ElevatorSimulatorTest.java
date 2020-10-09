@@ -4,20 +4,20 @@ import command.State;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.model.ElevatorModel;
+import command.model.ElevatorModel;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour le simulateur.
  */
-class ElevatorRemakeTest {
-    private ElevatorRemake simulator;
+class ElevatorSimulatorTest {
+    private ElevatorSimulator simulator;
     private ElevatorModel model;
 
     @BeforeEach
     void setUp() {
-        simulator = new ElevatorRemake(8, 2);
+        simulator = new ElevatorSimulator(8, 2);
         model = simulator.getModel();
     }
 

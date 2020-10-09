@@ -1,7 +1,7 @@
 package simulator;
 
 import command.State;
-import ui.model.ElevatorModel;
+import command.model.ElevatorModel;
 
 class SimulatorRunnable implements Runnable {
 

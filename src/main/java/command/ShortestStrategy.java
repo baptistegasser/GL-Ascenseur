@@ -2,7 +2,7 @@ package command;
 
 import command.request.Request;
 import command.request.RequestType;
-import ui.model.ElevatorModel;
+import command.model.ElevatorModel;
 
 import java.util.ArrayList;
 import java.util.List;
