@@ -78,6 +78,8 @@ class ElevatorSimulatorTest {
 
     /**
      * Test la montée de l'ascenseur.
+     * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
+     * temps qui joue sur le calcul de la position observé.
      */
     @Test
     void assertGoUp() throws InterruptedException {
@@ -126,6 +128,8 @@ class ElevatorSimulatorTest {
 
     /**
      * Test la descente de l'ascenseur.
+     * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
+     * temps qui joue sur le calcul de la position observé.
      */
     @Test
     void assertGoDown() throws InterruptedException {
@@ -158,8 +162,9 @@ class ElevatorSimulatorTest {
     }
 
     /**
-     *
-     * @throws InterruptedException
+     * Test la descente d'un seul étage vers le bas.
+     * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
+     * temps qui joue sur le calcul de la position observé.
      */
     @Test
     void willGoDownAndStopOneFloor() throws InterruptedException {
