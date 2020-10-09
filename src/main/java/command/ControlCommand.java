@@ -8,17 +8,36 @@ import simulator.ElevatorSimulator;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Le module de contrôle commande chargé de contrôler un ascenseur.
+ */
 public class ControlCommand {
     private State stateInEmergency;
 
+    /**
+     * La requête courante.
+     */
     private Request currentRequest;
+    /**
+     * La liste des requêtes non traitées.
+     */
     private ArrayList<Request> listRequest;
-
+    /**
+     * La simulation d'ascenseur contrôlé par ce contrôle commande.
+     */
     private ElevatorSimulator simulator;
-
+    /**
+     * La strategies de satisfaction des requêtes.
+     */
     private SatisfactionStrategy strategy;
 
+    /**
+     * Le thread où s'exécute la gestion des requêtes.
+     */
     private Thread thread;
+    /**
+     * L'instance chargé de gérer les requêtes.
+     */
     private ActionRequest action;
 
     public ControlCommand(ElevatorSimulator simulator, SatisfactionStrategy strategy) {
@@ -131,6 +150,7 @@ public class ControlCommand {
 
         /**
          * Ordonne tous les arrêt à effectuer pendant une monté
+         * @throws InterruptedException en cas d'interruption pendant le traitement
          */
         public void goToUp() throws InterruptedException {
             stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_UP);
@@ -152,6 +172,7 @@ public class ControlCommand {
 
         /**
          * Ordonne la simulation de monter la cabine vers l'étage de la requête courante
+         * @throws InterruptedException en cas d'interruption pendant le traitement
          */
         public void moveToUp() throws InterruptedException {
             System.out.println("EN MONTÉ");
@@ -171,6 +192,7 @@ public class ControlCommand {
 
         /**
          * Ordonne tous les arrêt à effectuer pendant une descente
+         * @throws InterruptedException en cas d'interruption pendant le traitement
          */
         public void goToDown() throws InterruptedException {
             stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_DOWN);
@@ -192,6 +214,7 @@ public class ControlCommand {
 
         /**
          * Ordonne la simulation de descendre la cabine vers l'étage de la requête courante
+         * @throws InterruptedException en cas d'interruption pendant le traitement
          */
         public void moveToDown() throws InterruptedException {
             System.out.println("EN DESCENTE");

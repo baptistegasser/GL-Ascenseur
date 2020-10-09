@@ -28,6 +28,8 @@ class ElevatorSimulatorTest {
 
     /**
      * Test de la méthode start qui ne doit pas changer l'état de l'ascenseur.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void start() throws InterruptedException {
@@ -39,6 +41,8 @@ class ElevatorSimulatorTest {
 
     /**
      * Vérification que la méthode stop fonctionne.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void stop() throws InterruptedException {
@@ -80,6 +84,8 @@ class ElevatorSimulatorTest {
      * Test la montée de l'ascenseur.
      * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
      * temps qui joue sur le calcul de la position observé.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertGoUp() throws InterruptedException {
@@ -95,6 +101,8 @@ class ElevatorSimulatorTest {
 
     /**
      * S'assure que si l'ascenseur monte et doit s'arrêter au prochain étage qu'il le s'arrête.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void willStopWillGoingUp() throws InterruptedException {
@@ -113,6 +121,8 @@ class ElevatorSimulatorTest {
 
     /**
      * S'assure que si l'ascenseur monte trop haut, il s'arrête en urgence.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertEmergencyStopIfTooHigh() throws InterruptedException {
@@ -130,6 +140,8 @@ class ElevatorSimulatorTest {
      * Test la descente de l'ascenseur.
      * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
      * temps qui joue sur le calcul de la position observé.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertGoDown() throws InterruptedException {
@@ -145,6 +157,8 @@ class ElevatorSimulatorTest {
 
     /**
      * S'assure que si l'ascenseur descend et doit s'arrêter au prochain étage qu'il le s'arrête.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void willStopWillGoingDown() throws InterruptedException {
@@ -165,6 +179,8 @@ class ElevatorSimulatorTest {
      * Test la descente d'un seul étage vers le bas.
      * Cette fonction de test n'est pas garantie de fonctionné à cause de l'incertitude du temps d'exécution du thread
      * temps qui joue sur le calcul de la position observé.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void willGoDownAndStopOneFloor() throws InterruptedException {
@@ -179,6 +195,8 @@ class ElevatorSimulatorTest {
 
     /**
      * S'assure que si l'ascenseur descend trop bas, il s'arrête en urgence.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertEmergencyStopIfTooLow() throws InterruptedException {
@@ -194,6 +212,8 @@ class ElevatorSimulatorTest {
 
     /**
      * Test de l'arrêt de l'ascenseur.
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertStopDontMove() throws InterruptedException {
@@ -211,6 +231,8 @@ class ElevatorSimulatorTest {
 
     /**
      * S'assure que si l'on relance après une urgence tout cela fonctionne
+     *
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void assertRecoverFromEmergency() throws InterruptedException {
