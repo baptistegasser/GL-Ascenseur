@@ -4,6 +4,7 @@ import command.ShortestStrategy;
 import command.request.Request;
 import command.request.RequestType;
 import org.junit.jupiter.api.Test;
+import ui.model.ElevatorModel;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ class ShortestStrategyTest {
      */
     @Test
     void nextRequestSimple() {
-        ShortestStrategy strategy = new ShortestStrategy();
+        ShortestStrategy strategy = new ShortestStrategy(new ElevatorModel());
         ArrayList<Request> listRequest = new ArrayList<>();
 
         assertNull(strategy.nextRequest(listRequest));
@@ -40,7 +41,7 @@ class ShortestStrategyTest {
      */
     @Test
     void nextRequest() {
-        ShortestStrategy strategy = new ShortestStrategy();
+        ShortestStrategy strategy = new ShortestStrategy(new ElevatorModel());
         ArrayList<Request> listRequest = new ArrayList<>();
 
         assertNull(strategy.nextRequest(listRequest));

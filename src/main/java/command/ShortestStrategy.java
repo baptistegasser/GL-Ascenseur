@@ -2,6 +2,7 @@ package command;
 
 import command.request.Request;
 import command.request.RequestType;
+import ui.model.ElevatorModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +12,22 @@ import java.util.List;
  * que la stratégie FIFO.
  */
 public class ShortestStrategy  implements SatisfactionStrategy {
+    ElevatorModel model;
+    public ShortestStrategy(ElevatorModel model) {
+        this.model = model;
+    }
 
     /**
      * Cette méthode permet de choisir la prochaine requête à traiter, et ainsi de s'y rendre
      * @param fifo La liste des requêtes à traiter
      * @return la requête à executer
      */
-    public static Request chooseFloor(List<Request> fifo) {
+    public  Request chooseFloor(List<Request> fifo) {
 
         double etageToGo = 0;
         double delta = 480;
         double tmpDelta;
-        double currentPosition = 4 ;
+        double currentPosition = this.model.position ;
         Request removeRequest = null;
 
         // Si la liste de requete et vite, ou si elle contient une requete d'arret d'urgence on return null
