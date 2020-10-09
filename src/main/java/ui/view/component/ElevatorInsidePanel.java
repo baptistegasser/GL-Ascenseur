@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 /**
  * Ce composant contient l'affichage des boutons présent à l'intérieur de l'ascenseur
@@ -17,15 +18,21 @@ public class ElevatorInsidePanel extends JPanel {
      * Le controller de la vue où ce trouve cette élément.
      */
     private final DemoController controller;
+    /**
+     * Stocke les boutons d'appels afin de les accéder plus tard (backlight)
+     */
+    private final HashMap<Integer, JButton> buttons;
 
     public ElevatorInsidePanel(int nbFloor, DemoController controller) {
         super(new GridLayout(0, 3));
         this.controller = controller;
+        this.buttons = new HashMap<>();
 
         JButton rdc = new JButton("RDC");
         rdc.addActionListener(e -> controller.handleFloorRequestInside(0));
         this.add(rdc);
         this.add(new JPanel());
+        buttons.put(0, rdc);
 
         ImageIcon imageIcon;
         try {
@@ -35,8 +42,13 @@ public class ElevatorInsidePanel extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         JButton buttonUrgency = new JButton(imageIcon);
-        buttonUrgency.addActionListener(e -> showEmergencyPopUp());
+        buttonUrgency.addActionListener(e -> {
+            buttonUrgency.setBackground(Color.ORANGE);
+            showEmergencyPopUp();
+            buttonUrgency.setBackground(null);
+        });
 
         this.add(buttonUrgency);
 
@@ -44,11 +56,15 @@ public class ElevatorInsidePanel extends JPanel {
             JButton button = new JButton();
 
             final int floor = i;
-            button.addActionListener(e -> controller.handleFloorRequestInside(floor));
+            button.addActionListener(e -> {
+                button.setBackground(Color.ORANGE);
+                controller.handleFloorRequestInside(floor);
+            });
 
             if (i == 0) button.setText("RDC");
             else button.setText("" + (i));
             this.add(button);
+            buttons.put(i, button);
         }
     }
 
@@ -71,16 +87,14 @@ public class ElevatorInsidePanel extends JPanel {
     }
 
     /**
-     * Change la couleur d'un composant en en orange ou la retire.
+     * Retire la couleur d'un bouton précédemment activé.
      *
-     * @param on si vrai ajouter la couleur sinon la retirer
-     * @param c le composant a colorier
+     * @param floor l'étage qui correspond au bouton à éteindre
      */
-    private void setBacklight(boolean on, Component c) {
-        if (on) {
-            c.setBackground(Color.ORANGE);
-        } else {
-            c.setBackground(null);
+    public void turnBacklightOff(int floor) {
+        JButton btn = buttons.get(floor);
+        if (btn != null) {
+            btn.setBackground(null);
         }
     }
 }

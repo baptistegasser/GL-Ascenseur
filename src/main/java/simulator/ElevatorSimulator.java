@@ -1,42 +1,60 @@
 package simulator;
 
-import ui.model.ElevatorModel;
+import command.model.State;
+import command.model.ElevatorModel;
 
+/**
+ * Un simulateur d'ascenseur utilisable à des fin de démonstration.
+ */
 public class ElevatorSimulator {
-    int floorCount;
-    int speed;
-    double position;
+    /**
+     * Vitesse de l'ascenseur en second/étage
+     */
+    private final int speed;
+    private final ElevatorModel model;
+    private Thread thread;
+    private SimulatorRunnable runnable;
 
-    ElevatorModel model;
-
-    public ElevatorSimulator(int floorCount, int speed, double position, ElevatorModel model) {
-        this.floorCount = floorCount;
+    public ElevatorSimulator(int nbFloor, int speed) {
+        this.model = new ElevatorModel();
+        this.model.state = State.STOPPED;
+        this.model.nbFloor = nbFloor;
         this.speed = speed;
-        this.position = position;
-        this.model = model;
     }
 
-    public void goTo(double floor) {
-        while (floor != model.getPosition()) {
-            if (floor < model.getPosition()) {
-                System.out.println("GoDown");
-                goDown();
-            } else {
-                System.out.println("GoUp");
-                goUp();
+    public void setState(State state) {
+        this.model.state = state;
+    }
+
+    /**
+     * @return le modèle lié à cette ascenseur {@link ElevatorModel}
+     */
+    public ElevatorModel getModel() {
+        return this.model;
+    }
+
+    /**
+     * Démarre le simulateur.
+     */
+    public void start() {
+        runnable = new SimulatorRunnable(speed, getModel());
+        thread = new Thread(runnable);
+        thread.start();
+    }
+
+    /**
+     * Arrête le simulateur.
+     * Si au bout d'un cours délai le simulateur n'a pas quitté, son thread est interrompu.
+     *
+     * @throws InterruptedException en cas d'échec de l'attente
+     */
+    public void stop() throws InterruptedException {
+        if (runnable != null && runnable.isRunning()) {
+            runnable.stop();
+            Thread.sleep(500);
+            if (thread.isAlive()) {
+                thread.interrupt();
             }
         }
-        System.out.println("Arrivé");
-    }
-
-    public void goUp() {
-        model.setPosition(model.getPosition()+1);
-    }
-
-    public void goDown() { model.setPosition(model.getPosition()-1);
-    }
-
-    public double getPosition() {
-        return position;
     }
 }

@@ -1,6 +1,7 @@
 package command;
 
 import command.request.Request;
+import command.request.RequestType;
 
 import java.util.ArrayList;
 
@@ -22,5 +23,10 @@ public class FIFOStrategy implements SatisfactionStrategy{
             System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
             return null;
         }
+    }
+
+    @Override
+    public ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType) {
+        return new ArrayList<>();
     }
 }

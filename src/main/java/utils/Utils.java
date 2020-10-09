@@ -1,17 +1,19 @@
 package utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Class contenant des fonctions utilitaires.
+ */
 public final class Utils {
 
     /**
-     * Retrieve a file from the resources folder.
+     * Récupère un fichier depuis le dossier resources.§
      *
-     * @param pathToFile The relative path of the file inside the resources folder.
-     * @return An abstract representation of the requested file.
-     * @throws IOException The file might not exist or fail to load.
+     * @param pathToFile le chemin relatif du fichier dans le dossier resources
+     * @return une instance d'{@link URL} pointant vers le fichier
+     * @throws IOException si le fichier n'existe pas
      */
     public static URL getResource(String pathToFile) throws IOException {
         URL resource = Utils.class.getClassLoader().getResource(pathToFile);

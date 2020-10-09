@@ -3,16 +3,19 @@ package ui.controller;
 import command.ControlCommand;
 import command.request.Request;
 import command.request.RequestType;
-import ui.model.Dir;
+import command.model.Dir;
 import ui.view.DemoView;
 
 /**
  * Le contrôler chargé d'opérer la vue de démo.
+ *
  * @see DemoView
  */
 public class DemoController {
-
-    ControlCommand controlCommand;
+    /**
+     * Le contrôleur commande utilisé durant l'utilisation de la démo.
+     */
+    private final ControlCommand controlCommand;
 
     public DemoController(ControlCommand controlCommand) {
         this.controlCommand = controlCommand;
@@ -41,7 +44,7 @@ public class DemoController {
     /**
      * Fonction appelé lorsque l'on souhaite appelé l'ascenseur à notre étage.
      *
-     * @param dir la direction souhaité par l'utilisateur
+     * @param dir   la direction souhaité par l'utilisateur
      * @param floor l'étage d'où la requête émane
      */
     public void handleFloorRequestOutside(Dir dir, int floor) {

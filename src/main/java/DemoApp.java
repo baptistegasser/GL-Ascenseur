@@ -1,6 +1,6 @@
 import command.ControlCommand;
-import command.FIFOStrategy;
-import simulator.ElevatorRemake;
+import command.ShortestStrategy;
+import simulator.ElevatorSimulator;
 import ui.controller.DemoController;
 import ui.view.DemoView;
 
@@ -16,11 +16,17 @@ public class DemoApp {
     private static final int FLOOR_COUNT = 6;
     private static final int SPEED = 3;
 
+    /**
+     * Fonction appelé pour lancer le programme.
+     */
     public void start() {
-        ElevatorRemake elevatorRemake = new ElevatorRemake(FLOOR_COUNT, SPEED);
-        ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy(), elevatorRemake.getModel());
+        ElevatorSimulator simulator = new ElevatorSimulator(FLOOR_COUNT, SPEED);
+        ControlCommand controlCommand = new ControlCommand(simulator, new ShortestStrategy(simulator.getModel()));
+        controlCommand.start();
         DemoController controller = new DemoController(controlCommand);
-        DemoView view = new DemoView(FLOOR_COUNT, WINDOW_WIDTH, controller, elevatorRemake.getModel());
+        simulator.start();
+        DemoView view = new DemoView(FLOOR_COUNT, WINDOW_WIDTH, controller, simulator.getModel());
+
 
         JFrame window = new JFrame(WINDOW_TITLE);
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -31,7 +37,11 @@ public class DemoApp {
         window.setVisible(true);
     }
 
-    // TODO Delete no push
+    /**
+     * Point d'entrée de l'application de démo.
+     *
+     * @param args arguments du programme
+     */
     public static void main(String[] args) {
         new DemoApp().start();
     }

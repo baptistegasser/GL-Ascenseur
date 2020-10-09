@@ -9,7 +9,7 @@ public interface Observer<T> {
     /**
      * Fonction appeler lors ce que l'objet est mise à jour.
      *
-     * @param o l'objet en question.
+     * @param val l'objet en question.
      */
-    void update(T old, T val);
+    void update(T val);
 }
