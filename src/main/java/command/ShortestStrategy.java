@@ -17,6 +17,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
         this.model = model;
     }
 
+    //A modifier TODO
     /**
      * Cette méthode permet de choisir la prochaine requête à traiter, et ainsi de s'y rendre
      * @param fifo La liste des requêtes à traiter
@@ -96,12 +97,45 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     public Request nextRequest(ArrayList<Request> listRequest) {
         System.out.println("NEXT");
         //System.out.println(listRequest);
-        if (listRequest.size() > 0) {
+        /*if (listRequest.size() > 0) {
             //  On retourne la requête à traiter
             return chooseFloor(listRequest);
         } else {
             System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
             return null;
+        }*/
+
+        if (listRequest.size() > 0) {
+            return listRequest.get(0);
+        } else {
+            System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
+            return null;
         }
+    }
+
+    /**
+     * Retourne toutes les requêtes à exécuter pendant un voyage
+     * @param requestType liste de requête à exécuter pendant le voyage
+     * @return
+     */
+    @Override
+    public ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType) {
+        ArrayList<Request> returnList = new ArrayList<>();
+
+        for (Request request : listRequest) {
+            if (request.getRequestType() == requestType || request.getRequestType() == RequestType.GO_TO) {
+                if (requestType == RequestType.OUTSIDE_UP) {
+                    if (request.getPosition()>model.getPosition() && request.getPosition()<currentRequest.getPosition()){
+                        returnList.add(request);
+                    }
+                } else if (requestType == RequestType.OUTSIDE_DOWN) {
+                    if (request.getPosition()<model.getPosition() && request.getPosition()>currentRequest.getPosition()){
+                        returnList.add(request);
+                    }
+                }
+            }
+        }
+
+        return returnList;
     }
 }

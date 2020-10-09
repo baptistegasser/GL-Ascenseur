@@ -139,7 +139,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void goToUp() throws InterruptedException {
-            stopRequests = getListOfAction(RequestType.OUTSIDE_UP);
+            stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_UP);
             Collections.sort(stopRequests);
             System.out.println("Liste requête Up: "+stopRequests);
             Request currentRequestMaster = currentRequest;
@@ -181,7 +181,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void goToDown() throws InterruptedException {
-            stopRequests = getListOfAction(RequestType.OUTSIDE_DOWN);
+            stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_DOWN);
             Collections.sort(stopRequests, Request.RequestComparator);
             System.out.println("Liste requête Down: "+stopRequests);
             Request currentRequestMaster = currentRequest;
@@ -216,12 +216,8 @@ public class ControlCommand {
             }
         }
 
-        /**
-         * Retourne toutes les requêtes à exécuter pendant un voyage
-         * @param requestType liste de requête à exécuter pendant le voyage
-         * @return
-         */
-        public ArrayList<Request> getListOfAction(RequestType requestType) {
+
+        /*public ArrayList<Request> getListOfAction(RequestType requestType) {
             ArrayList<Request> returnList = new ArrayList<>();
 
             for (Request request : listRequest) {
@@ -239,7 +235,7 @@ public class ControlCommand {
             }
 
             return returnList;
-        }
+        }*/
 
         public ArrayList<Request> getStopRequests() {
             return stopRequests;

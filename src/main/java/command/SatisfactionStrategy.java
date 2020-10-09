@@ -1,6 +1,7 @@
 package command;
 
 import command.request.Request;
+import command.request.RequestType;
 
 import java.util.ArrayList;
 
@@ -9,4 +10,5 @@ import java.util.ArrayList;
  */
 public interface SatisfactionStrategy {
     public Request nextRequest(ArrayList<Request> listRequest);
+    public ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType);
 }

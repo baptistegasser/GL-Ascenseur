@@ -9,6 +9,9 @@ import simulator.ElevatorRemake;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Different test pour le controlCommand utilisant la strategy Shortest
+ */
 public class ControlCommandTest {
 
     ElevatorRemake simulator;
@@ -17,7 +20,7 @@ public class ControlCommandTest {
     @BeforeEach
     void setUp() {
         simulator = new ElevatorRemake(6,3);
-        controlCommand = new ControlCommand(simulator, new FIFOStrategy());
+        controlCommand = new ControlCommand(simulator, new ShortestStrategy(simulator.getModel()));
     }
 
     @AfterEach
@@ -224,6 +227,24 @@ public class ControlCommandTest {
      */
     @Test
     public void actionBestTest() {
+        Request request1 = new Request(RequestType.OUTSIDE_UP, 3);
+        Request request2 = new Request(RequestType.GO_TO, 4);
 
+        Request request3 = new Request(RequestType.OUTSIDE_UP, 1);
+
+        Request request4 = new Request(RequestType.OUTSIDE_DOWN, 2);
+        Request request5 = new Request(RequestType.OUTSIDE_UP, 4);
+        Request request6 = new Request(RequestType.OUTSIDE_DOWN, 4);
+
+        Request request7 = new Request(RequestType.GO_TO, 5);
+
+        controlCommand.addRequest(request1);
+        controlCommand.addRequest(request2);
+        controlCommand.addRequest(request3);
+        controlCommand.addRequest(request4);
+        controlCommand.addRequest(request5);
+
+        simulator.start();
+        controlCommand.start();
     }
 }
