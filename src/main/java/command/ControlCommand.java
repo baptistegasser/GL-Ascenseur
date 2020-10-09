@@ -117,8 +117,8 @@ public class ControlCommand {
                             System.out.println("ARRIVÉ AU "+simulator.getModel().getPosition());
                             stopRequests = new ArrayList<>();
                             listRequest.remove(currentRequest);
-                            currentRequest = strategy.nextRequest(listRequest);
                             Thread.sleep(3000);
+                            currentRequest = strategy.nextRequest(listRequest);
                         } else {
                             listRequest.remove(currentRequest);
                             currentRequest = strategy.nextRequest(listRequest);
