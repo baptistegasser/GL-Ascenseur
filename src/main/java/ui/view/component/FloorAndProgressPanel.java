@@ -173,7 +173,7 @@ public class FloorAndProgressPanel extends JPanel {
 
         for (String name : new String[]{up, down}) {
             JPanel panel = buttonPanels.get(name);
-            if (panel == null) return;
+            if (panel == null) continue;
 
             for (Component c : panel.getComponents()) {
                 if (c != null && c.getName().equals("btn")) {
