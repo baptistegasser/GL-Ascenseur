@@ -87,8 +87,8 @@ class SimulatorRunnable implements Runnable {
     private void up() {
         double pos = model.getPosition() + (elapsed / duration);
         if (pos > model.nbFloor) {
-            model.setState(State.EMERGENCY);
             model.setPosition(model.nbFloor);
+            model.setState(State.EMERGENCY);
         } else {
             model.setPosition(pos);
         }
@@ -101,10 +101,11 @@ class SimulatorRunnable implements Runnable {
             nextFloor = (int) (pos - (pos % 1)) + 1;
         }
 
-        if (pos >= nextFloor) {
+        double nextPos = pos + (elapsed / duration);
+        if (nextPos >= nextFloor) {
             isGoingToStop = false;
-            model.setState(State.STOPPED);
             model.setPosition(nextFloor);
+            model.setState(State.STOPPED);
         } else {
             up();
         }
@@ -113,8 +114,8 @@ class SimulatorRunnable implements Runnable {
     private void down() {
         double pos = model.getPosition() - (elapsed / duration);
         if (pos < 0) {
-            model.setState(State.EMERGENCY);
             model.setPosition(0);
+            model.setState(State.EMERGENCY);
         } else {
             model.setPosition(pos);
         }
@@ -132,10 +133,11 @@ class SimulatorRunnable implements Runnable {
             }
         }
 
-        if (pos <= nextFloor) {
+        double nextPos = pos - (elapsed / duration);
+        if (nextPos <= nextFloor) {
             isGoingToStop = false;
-            model.setState(State.STOPPED);
             model.setPosition(nextFloor);
+            model.setState(State.STOPPED);
         } else {
             down();
         }
