@@ -13,27 +13,32 @@ import java.awt.*;
 
 /**
  * La vue de démonstration représentant de manière schématisé un ascenseur.
+ *
  * @see DemoController
  */
 public class DemoView extends JPanel implements Observer<ElevatorModel> {
     /**
-     * Le controller lié à cette vue
+     * Le panneau affichant l'état de l'ascenseur
+     *
+     * @see ElevatorStatePanel
      */
-    private final DemoController controller;
-    /**
-     * Le modèle de l'ascenseur
-     */
-    private final ElevatorModel model;
-
     private final ElevatorStatePanel elevatorStatePanel;
+    /**
+     * Le panneau affichant le panneau de boutons interne
+     *
+     * @see ElevatorInsidePanel
+     */
     private final ElevatorInsidePanel elevatorInsidePanel;
+    /**
+     * Le panneau affichant les boutons externes et le progrès
+     *
+     * @see FloorAndProgressPanel
+     */
     private final FloorAndProgressPanel floorAndProgressPanel;
 
     public DemoView(int nbFloor, int window_width, DemoController controller, ElevatorModel model) {
         super(new GridBagLayout());
-        this.controller = controller;
-        this.model = model;
-        this.model.observe(this);
+        model.observe(this);
 
         this.elevatorStatePanel = new ElevatorStatePanel();
         this.elevatorInsidePanel = new ElevatorInsidePanel(nbFloor, controller);
@@ -53,7 +58,7 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.insets = new Insets(0,0,20,0);
+        constraints.insets = new Insets(0, 0, 20, 0);
         constraints.ipady = 100;
         constraints.ipadx = 100;
         add(this.elevatorInsidePanel, constraints);
@@ -62,13 +67,18 @@ public class DemoView extends JPanel implements Observer<ElevatorModel> {
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.insets = new Insets(0,0,0,0);
+        constraints.insets = new Insets(0, 0, 0, 0);
         constraints.gridwidth = 2; // Centre en utilisant les d2 colones pour le panneau
         constraints.ipady = 190;
         constraints.ipadx = window_width;
         add(this.floorAndProgressPanel, constraints);
     }
 
+    /**
+     * Fonction appelé à chaque changement du modèle, permet de m-à-j la vue.
+     *
+     * @param model le nouveau model
+     */
     @Override
     public void update(ElevatorModel model) {
         this.elevatorStatePanel.setState(model.state);

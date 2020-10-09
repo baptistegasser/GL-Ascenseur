@@ -16,6 +16,9 @@ public class DemoApp {
     private static final int FLOOR_COUNT = 6;
     private static final int SPEED = 3;
 
+    /**
+     * Fonction appelé pour lancer le programme.
+     */
     public void start() {
         ElevatorRemake elevatorRemake = new ElevatorRemake(FLOOR_COUNT, SPEED);
         ControlCommand controlCommand = new ControlCommand(elevatorRemake, new FIFOStrategy());
@@ -34,7 +37,11 @@ public class DemoApp {
         window.setVisible(true);
     }
 
-    // TODO Delete no push
+    /**
+     * Point d'entrée de l'application de démo.
+     *
+     * @param args arguments du programme
+     */
     public static void main(String[] args) {
         new DemoApp().start();
     }

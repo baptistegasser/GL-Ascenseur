@@ -88,6 +88,8 @@ public class ElevatorInsidePanel extends JPanel {
 
     /**
      * Retire la couleur d'un bouton précédemment activé.
+     *
+     * @param floor l'étage qui correspond au bouton à éteindre
      */
     public void turnBacklightOff(int floor) {
         JButton btn = buttons.get(floor);

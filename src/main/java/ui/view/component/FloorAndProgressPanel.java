@@ -78,7 +78,7 @@ public class FloorAndProgressPanel extends JPanel {
         progressBar = new JProgressBar(0, 100);
         progressBar.setMaximum(nbFloor * 10);
         // TODO fix width
-        progressBar.setPreferredSize(new Dimension((nbFloor+1)*30 + nbFloor*55, 20));
+        progressBar.setPreferredSize(new Dimension((nbFloor + 1) * 30 + nbFloor * 55, 20));
         progressBar.setValue(0);
 
         panelCenter.add(progressBar);
@@ -165,7 +165,9 @@ public class FloorAndProgressPanel extends JPanel {
     }
 
     /**
-     * Retire la couleur d'un bouton précédemment activé.
+     * Retire la couleur des boutons précédemment activé.
+     *
+     * @param floor l'étage où l'on éteint les boutons
      */
     public void turnBacklightOff(int floor) {
         String up = Dir.UP.toString() + floor;
