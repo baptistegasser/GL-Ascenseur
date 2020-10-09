@@ -95,6 +95,7 @@ public class ControlCommand {
      */
     public class ActionRequest implements Runnable {
         private boolean flag = true;
+        private ArrayList<Request> stopRequests;
 
         @Override
         public void run() {
@@ -113,11 +114,14 @@ public class ControlCommand {
                                 goToDown();
                             }
                             System.out.println("ARRIVÉ AU "+simulator.getModel().getPosition());
+                            stopRequests = new ArrayList<>();
+                            listRequest.remove(currentRequest);
+                            currentRequest = strategy.nextRequest(listRequest);
                             Thread.sleep(3000);
+                        } else {
+                            listRequest.remove(currentRequest);
+                            currentRequest = strategy.nextRequest(listRequest);
                         }
-
-                        listRequest.remove(currentRequest);
-                        currentRequest = strategy.nextRequest(listRequest);
                     }
 
                     Thread.sleep(250);
@@ -135,7 +139,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void goToUp() throws InterruptedException {
-            ArrayList<Request> stopRequests = getListOfAction(RequestType.OUTSIDE_UP);
+            stopRequests = getListOfAction(RequestType.OUTSIDE_UP);
             Collections.sort(stopRequests);
             System.out.println("Liste requête Up: "+stopRequests);
             Request currentRequestMaster = currentRequest;
@@ -177,7 +181,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void goToDown() throws InterruptedException {
-            ArrayList<Request> stopRequests = getListOfAction(RequestType.OUTSIDE_DOWN);
+            stopRequests = getListOfAction(RequestType.OUTSIDE_DOWN);
             Collections.sort(stopRequests, Request.RequestComparator);
             System.out.println("Liste requête Down: "+stopRequests);
             Request currentRequestMaster = currentRequest;
@@ -221,7 +225,7 @@ public class ControlCommand {
             ArrayList<Request> returnList = new ArrayList<>();
 
             for (Request request : listRequest) {
-                if (request.getRequestType() == requestType) {
+                if (request.getRequestType() == requestType || request.getRequestType() == RequestType.GO_TO) {
                     if (requestType == RequestType.OUTSIDE_UP) {
                         if (request.getPosition()>model.getPosition() && request.getPosition()<currentRequest.getPosition()){
                             returnList.add(request);
@@ -237,6 +241,9 @@ public class ControlCommand {
             return returnList;
         }
 
+        public ArrayList<Request> getStopRequests() {
+            return stopRequests;
+        }
     }
 
     public Request getCurrentRequest() {
@@ -253,5 +260,9 @@ public class ControlCommand {
 
     public State getStateInEmergency() {
         return stateInEmergency;
+    }
+
+    public ActionRequest getAction() {
+        return action;
     }
 }

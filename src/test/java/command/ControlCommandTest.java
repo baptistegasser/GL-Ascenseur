@@ -88,6 +88,10 @@ public class ControlCommandTest {
         assertEquals(controlCommand.getListRequest().get(1), request1);
     }
 
+    /**
+     * Test une simple monté de l'ascenseur
+     * @throws InterruptedException
+     */
     @Test
     public void actionGotoTest() throws InterruptedException {
         Request request1 = new Request(RequestType.GO_TO, 4);
@@ -102,6 +106,10 @@ public class ControlCommandTest {
         assertEquals(simulator.getModel().getPosition(), 4);
     }
 
+    /**
+     * Test un enchainement de monté et de descente
+     * @throws InterruptedException
+     */
     @Test
     public void actionGotoUpAndDownTest() throws InterruptedException {
         Request request1 = new Request(RequestType.GO_TO, 2);
@@ -109,26 +117,113 @@ public class ControlCommandTest {
         Request request3 = new Request(RequestType.GO_TO, 0);
 
         controlCommand.addRequest(request1);
-        controlCommand.addRequest(request2);
 
-        controlCommand.start();
         simulator.start();
+        controlCommand.start();
 
         Thread.sleep(8000);
-        System.out.println("Fin sleep 1");
+        //System.out.println("Fin sleep 1");
         assertEquals(simulator.getModel().getPosition(), 2);
+
+        controlCommand.addRequest(request2);
+
         Thread.sleep(7000);
-        System.out.println("Fin sleep 2");
+        //System.out.println("Fin sleep 2");
         assertEquals(simulator.getModel().getPosition(), 1);
 
         controlCommand.addRequest(request1);
         controlCommand.addRequest(request3);
 
         Thread.sleep(5000);
-        System.out.println("Fin sleep 3");
+        //System.out.println("Fin sleep 3");
         assertEquals(simulator.getModel().getPosition(), 2);
         Thread.sleep(10000);
-        System.out.println("Fin sleep 4");
+        //System.out.println("Fin sleep 4");
         assertEquals(simulator.getModel().getPosition(), 0);
+    }
+
+    /***
+     * Test une monté et une descente avec des arrêt intermédiaire
+     */
+    @Test
+    public void actionGotoWithIntermediateStopTest() throws InterruptedException {
+        Request request1 = new Request(RequestType.GO_TO, 4);
+        Request request2 = new Request(RequestType.OUTSIDE_UP, 1);
+        Request request3 = new Request(RequestType.OUTSIDE_DOWN, 2);
+        Request request4 = new Request(RequestType.OUTSIDE_UP, 3);
+        Request request5 = new Request(RequestType.GO_TO, 0);
+
+        controlCommand.addRequest(request1);
+        controlCommand.addRequest(request2);
+        controlCommand.addRequest(request3);
+        controlCommand.addRequest(request4);
+        controlCommand.addRequest(request5);
+
+        simulator.start();
+        controlCommand.start();
+
+        assertEquals(controlCommand.getCurrentRequest(), request1);
+        assertEquals(controlCommand.getListRequest().size(), 5);
+
+        Thread.sleep(100);
+        //System.out.println("Fin sleep 1");
+
+        // Verification pendant le premier voyage entre RDC et 1
+
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(0), request2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(1), request4);
+        assertEquals(controlCommand.getCurrentRequest(), request2);
+        assertEquals(controlCommand.getListRequest().size(), 5);
+        Thread.sleep(7000);
+        //System.out.println("Fin sleep 2");
+
+
+        // Verification pendant le deuxième voyage entre 1 et 3
+
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(0), request2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(1), request4);
+        assertEquals(controlCommand.getCurrentRequest(), request4);
+        assertEquals(controlCommand.getListRequest().size(), 4);
+        Thread.sleep(9000);
+        //System.out.println("Fin sleep 3");
+
+        // Verification pendant le troisième voyage entre 3 et 4
+
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(0), request2);
+        assertEquals(controlCommand.getAction().getStopRequests().get(1), request4);
+        assertEquals(controlCommand.getCurrentRequest(), request1);
+        assertEquals(controlCommand.getListRequest().size(), 3);
+        Thread.sleep(6000);
+        //System.out.println("Fin sleep 4");
+
+        // Verification pendant le quatrième voyage entre 4 et 2
+
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 0);
+        assertEquals(controlCommand.getCurrentRequest(), request3);
+        assertEquals(controlCommand.getListRequest().size(), 2);
+        Thread.sleep(10000);
+        //System.out.println("Fin sleep 5");
+
+        // Verification pendant le cinquième voyage entre 2 et 0
+
+        assertEquals(controlCommand.getAction().getStopRequests().size(), 0);
+        assertEquals(controlCommand.getCurrentRequest(), request5);
+        assertEquals(controlCommand.getListRequest().size(), 1);
+        Thread.sleep(8000);
+        System.out.println("Fin sleep 6");
+
+        assertNull(controlCommand.getCurrentRequest());
+        assertEquals(controlCommand.getListRequest().size(), 0);
+    }
+
+    /***
+     * Test avec plusieurs monté et descente et plusieurs arrêt intermédiaire
+     */
+    @Test
+    public void actionBestTest() {
+
     }
 }
