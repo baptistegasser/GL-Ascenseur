@@ -1,6 +1,6 @@
 package ui.view.component;
 
-import command.State;
+import command.model.State;
 
 import javax.swing.*;
 import java.awt.*;
