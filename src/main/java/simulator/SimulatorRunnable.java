@@ -3,8 +3,10 @@ package simulator;
 import command.model.State;
 import command.model.ElevatorModel;
 
+/**
+ * Le coeur du simulateur, met à jour la position en fonction de l'état et de l'écoulement du temps.
+ */
 class SimulatorRunnable implements Runnable {
-
     /**
      * La durée en ms entre chaque étage.
      */
@@ -23,7 +25,13 @@ class SimulatorRunnable implements Runnable {
      */
     private boolean isGoingToStop = false;
 
-    private long last, elapsed;
+    /**
+     * Le temps écoulé entre le dernier traitement et celui en cours.
+     */
+    private long elapsed;
+    /**
+     * Le prochain étage où s'arrêter si en mode STOP_NEXT.
+     */
     private int nextFloor = -1;
 
     /**
@@ -42,14 +50,21 @@ class SimulatorRunnable implements Runnable {
         this.running = false;
     }
 
+    /**
+     * @return vrai si en cours d'exécution.
+     */
     public boolean isRunning() {
         return this.running;
     }
 
+    /**
+     * Fonction appelé dans le Thread.
+     * Coeur du simulateur, ce charge de changer la position en fonction de l'état et du temps écoulé
+     * depuis le dernier traitement.
+     */
     @Override
     public void run() {
-        last = System.currentTimeMillis();
-
+        long last = System.currentTimeMillis();
         long current;
         while (running) {
             current = System.currentTimeMillis();
@@ -77,6 +92,7 @@ class SimulatorRunnable implements Runnable {
             }
 
             try {
+                //noinspection BusyWait
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -84,6 +100,9 @@ class SimulatorRunnable implements Runnable {
         }
     }
 
+    /**
+     * Fonction appelé lorsque l'ascenseur est dans l'état {@link State#MOVING_UP}
+     */
     private void up() {
         double pos = model.getPosition() + (elapsed / duration);
         if (pos > model.nbFloor) {
@@ -94,6 +113,9 @@ class SimulatorRunnable implements Runnable {
         }
     }
 
+    /**
+     * Fonction appelé lorsque l'ascenseur est dans l'état {@link State#MOVING_UP_STOP_NEXT}
+     */
     private void upAndStopNext() {
         double pos = model.getPosition();
         if (!isGoingToStop) {
@@ -111,6 +133,9 @@ class SimulatorRunnable implements Runnable {
         }
     }
 
+    /**
+     * Fonction appelé lorsque l'ascenseur est dans l'état {@link State#MOVING_DOWN}
+     */
     private void down() {
         double pos = model.getPosition() - (elapsed / duration);
         if (pos < 0) {
@@ -121,6 +146,9 @@ class SimulatorRunnable implements Runnable {
         }
     }
 
+    /**
+     * Fonction appelé lorsque l'ascenseur est dans l'état {@link State#MOVING_DOWN_STOP_NEXT}
+     */
     private void downAndStopNext() {
         double pos = model.getPosition();
         if (!isGoingToStop) {

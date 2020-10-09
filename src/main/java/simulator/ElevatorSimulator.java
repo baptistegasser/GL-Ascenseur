@@ -8,11 +8,22 @@ import command.model.ElevatorModel;
  */
 public class ElevatorSimulator {
     /**
-     * Vitesse de l'ascenseur en second/étage
+     * Vitesse de l'ascenseur en seconde/étage.
      */
     private final int speed;
+    /**
+     * Le modèle contenant les données de ce simulateur.
+     */
     private final ElevatorModel model;
+    /**
+     * Le thread exécutant le traitement de la simulation.
+     */
     private Thread thread;
+    /**
+     * Le coeur du simulateur.
+     *
+     * @see SimulatorRunnable pour le fonctionnement.
+     */
     private SimulatorRunnable runnable;
 
     public ElevatorSimulator(int nbFloor, int speed) {
@@ -22,6 +33,11 @@ public class ElevatorSimulator {
         this.speed = speed;
     }
 
+    /**
+     * Change l'état de l'ascenseur simulé.
+     *
+     * @param state le nouvel état
+     */
     public void setState(State state) {
         this.model.state = state;
     }

@@ -20,7 +20,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     /**
      * Cette méthode permet de choisir la prochaine requête à traiter, elle choisie en priorité les requêtes Goto les plus proche
      * @param listRequest La liste des requêtes à traiter
-     * @return la requête à executer
+     * @return la requête à exécuter
      */
     public Request chooseFloor(List<Request> listRequest) {
 
@@ -57,14 +57,14 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     /**
      * Cette méthode renvoie la requête renvoyée par chooseFloor()
      * Si la liste est vide, elle retourne null
-     * @return la requête à executer
+     * @return la requête à exécuter
      */
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
         if (listRequest.size() > 0) {
             return chooseFloor(listRequest);
         } else {
-            System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
+            System.out.println("Aucunes requêtes. L'ascenseur reste à son étage actuel");
             return null;
         }
     }

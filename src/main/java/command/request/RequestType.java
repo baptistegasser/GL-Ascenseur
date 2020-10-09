@@ -1,7 +1,7 @@
 package command.request;
 
 /**
- * Enumère tous les types de requètes nécessaire
+ * Énumère tous les types de requêtes nécessaire
  */
 public enum RequestType {
     GO_TO,
