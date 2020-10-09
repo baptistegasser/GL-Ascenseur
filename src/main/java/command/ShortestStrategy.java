@@ -12,7 +12,12 @@ import java.util.List;
  * que la stratégie FIFO.
  */
 public class ShortestStrategy  implements SatisfactionStrategy {
+
+    /**
+     * Le modèle afin de récupérer la position de l'ascenseur et d'aller au plus proche
+     */
     ElevatorModel model;
+
     public ShortestStrategy(ElevatorModel model) {
         this.model = model;
     }
