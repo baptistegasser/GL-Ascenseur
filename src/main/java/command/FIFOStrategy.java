@@ -20,7 +20,7 @@ public class FIFOStrategy implements SatisfactionStrategy{
         if (listRequest.size() > 0) {
             return listRequest.get(0);
         } else {
-            System.out.println("Aucunes requêtes. L'ascenceur reste à son étage actuel");
+            System.out.println("Aucunes requêtes. L'ascenseur reste à son étage actuel");
             return null;
         }
     }

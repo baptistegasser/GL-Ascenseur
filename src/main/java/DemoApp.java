@@ -10,11 +10,26 @@ import javax.swing.*;
  * Une application de démonstration permettant de présenter le contrôleur commande.
  */
 public class DemoApp {
+    /**
+     * Le titre de la démo.
+     */
     private static final String WINDOW_TITLE = "GL-Elevator";
+    /**
+     * La largeur original de la fenêtre de démo.
+     */
     private static final int WINDOW_WIDTH = 800;
+    /**
+     * La hauteur original de la fenêtre de démo.
+     */
     private static final int WINDOW_HEIGHT = 600;
+    /**
+     * Le nombre d'étage à simuler pour la démo.
+     */
     private static final int FLOOR_COUNT = 6;
-    private static final int SPEED = 3;
+    /**
+     * La vitesse (en seconde pour parcourir 1 étage) de l'ascenseur simulé.
+     */
+    private static final int SPEED = 2;
 
     /**
      * Fonction appelé pour lancer le programme.

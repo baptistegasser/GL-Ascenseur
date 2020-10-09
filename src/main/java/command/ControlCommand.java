@@ -131,7 +131,6 @@ public class ControlCommand {
 
         /**
          * Ordonne tous les arrêt à effectuer pendant une monté
-         * @throws InterruptedException
          */
         public void goToUp() throws InterruptedException {
             stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_UP);
@@ -153,7 +152,6 @@ public class ControlCommand {
 
         /**
          * Ordonne la simulation de monter la cabine vers l'étage de la requête courante
-         * @throws InterruptedException
          */
         public void moveToUp() throws InterruptedException {
             System.out.println("EN MONTÉ");
@@ -173,7 +171,6 @@ public class ControlCommand {
 
         /**
          * Ordonne tous les arrêt à effectuer pendant une descente
-         * @throws InterruptedException
          */
         public void goToDown() throws InterruptedException {
             stopRequests = strategy.getListOfAction(listRequest, currentRequest, RequestType.OUTSIDE_DOWN);
@@ -195,7 +192,6 @@ public class ControlCommand {
 
         /**
          * Ordonne la simulation de descendre la cabine vers l'étage de la requête courante
-         * @throws InterruptedException
          */
         public void moveToDown() throws InterruptedException {
             System.out.println("EN DESCENTE");
