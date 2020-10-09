@@ -1,7 +1,7 @@
-package command;
+package command.model;
 
 /**
- * Etat courant de l'ascenseur (en arrêt d'urgence, arrêté, en mouvement ...)
+ * État courant de l'ascenseur (en arrêt d'urgence, arrêté, en mouvement ...)
  */
 public enum State {
     STOPPED,

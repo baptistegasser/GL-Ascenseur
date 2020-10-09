@@ -1,6 +1,5 @@
 package command.model;
 
-import command.State;
 import utils.Observable;
 
 /**

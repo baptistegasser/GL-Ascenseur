@@ -1,5 +1,6 @@
 package command;
 
+import command.model.State;
 import command.request.Request;
 import command.request.RequestType;
 import simulator.ElevatorSimulator;
