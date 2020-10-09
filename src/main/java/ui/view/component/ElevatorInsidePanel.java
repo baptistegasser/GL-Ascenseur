@@ -29,7 +29,10 @@ public class ElevatorInsidePanel extends JPanel {
         this.buttons = new HashMap<>();
 
         JButton rdc = new JButton("RDC");
-        rdc.addActionListener(e -> controller.handleFloorRequestInside(0));
+        rdc.addActionListener(e -> {
+            setBackground(Color.ORANGE);
+            controller.handleFloorRequestInside(0);
+        });
         this.add(rdc);
         this.add(new JPanel());
         buttons.put(0, rdc);
