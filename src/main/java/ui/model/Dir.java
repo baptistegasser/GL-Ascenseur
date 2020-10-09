@@ -1,4 +1,4 @@
-package command.model;
+package ui.model;
 
 /**
  * Représentation des directions possible pour un ascenseur.

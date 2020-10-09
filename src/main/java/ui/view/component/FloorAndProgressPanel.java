@@ -1,7 +1,7 @@
 package ui.view.component;
 
 import ui.controller.DemoController;
-import command.model.Dir;
+import ui.model.Dir;
 import utils.Utils;
 
 import javax.imageio.ImageIO;

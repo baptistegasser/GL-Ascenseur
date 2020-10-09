@@ -3,7 +3,7 @@ package ui.controller;
 import command.ControlCommand;
 import command.request.Request;
 import command.request.RequestType;
-import command.model.Dir;
+import ui.model.Dir;
 import ui.view.DemoView;
 
 /**
