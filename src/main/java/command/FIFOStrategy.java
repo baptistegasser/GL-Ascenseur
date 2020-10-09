@@ -25,6 +25,13 @@ public class FIFOStrategy implements SatisfactionStrategy{
         }
     }
 
+    /**
+     * Renvoie une arrayList vide, car cette stratégie étant simple nous récuupererons juste la première requête
+     * @param listRequest
+     * @param currentRequest
+     * @param requestType
+     * @return
+     */
     @Override
     public ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType) {
         return new ArrayList<>();
