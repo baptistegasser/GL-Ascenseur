@@ -10,17 +10,17 @@ import java.util.ArrayList;
  */
 public interface SatisfactionStrategy {
     /**
-     * Renvoie La requête à executer
+     * Renvoie La requête à exécuter
      * @param listRequest La liste des requêtes en attente
-     * @return La requête à executer
+     * @return La requête à exécuter
      */
     Request nextRequest(ArrayList<Request> listRequest);
 
     /**
      * Renvoie la liste des actions à effectuer
-     * @param listRequest
-     * @param currentRequest
-     * @param requestType
+     * @param listRequest la liste de requête
+     * @param currentRequest la requête courante
+     * @param requestType le type de requête
      * @return La liste des actions
      */
     ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType);
