@@ -22,7 +22,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
      * @param listRequest La liste des requêtes à traiter
      * @return la requête à executer
      */
-    public  Request chooseFloor(List<Request> listRequest) {
+    public Request chooseFloor(List<Request> listRequest) {
 
         int minFloor = 100;//On prend une valeur assez élevé
         Request requestFinal = null;
@@ -57,6 +57,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     /**
      * Cette méthode renvoie la requête renvoyée par chooseFloor()
      * Si la liste est vide, elle retourne null
+     * @return la requête à executer
      */
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
@@ -73,7 +74,7 @@ public class ShortestStrategy  implements SatisfactionStrategy {
     /**
      * Retourne toutes les requêtes à exécuter pendant un voyage
      * @param requestType liste de requête à exécuter pendant le voyage
-     * @return
+     * @return la liste de requêtes
      */
     @Override
     public ArrayList<Request> getListOfAction(ArrayList<Request> listRequest, Request currentRequest, RequestType requestType) {
