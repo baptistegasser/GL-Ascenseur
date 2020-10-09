@@ -61,8 +61,6 @@ public class ShortestStrategy  implements SatisfactionStrategy {
      */
     @Override
     public Request nextRequest(ArrayList<Request> listRequest) {
-        System.out.println("NEXT");
-
         if (listRequest.size() > 0) {
             return chooseFloor(listRequest);
         } else {
