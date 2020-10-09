@@ -11,7 +11,7 @@ import utils.Observable;
 public class ElevatorModel extends Observable<ElevatorModel> {
     /**
      * Le nombre d'étage de l'ascenseur.
-     * Avec pour exemple nbFloor = 9 -> RDC + 9 étages
+     * Exemple si nbFloor = 9 alors on a le RDC et 9 étages
      */
     public int nbFloor;
     /**
