@@ -4,6 +4,7 @@ import command.ShortestStrategy;
 import command.request.Request;
 import command.request.RequestType;
 import org.junit.jupiter.api.Test;
+import simulator.ElevatorRemake;
 import ui.model.ElevatorModel;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ class ShortestStrategyTest {
         listRequest.add(request2);
         System.out.println("L'ascenceur ira a l'étage " + strategy.nextRequest(listRequest).getPosition());
 
-        assertEquals(strategy.nextRequest(listRequest), request);
+        assertEquals(strategy.nextRequest(listRequest), request2);
     }
 
     /**
@@ -41,7 +42,8 @@ class ShortestStrategyTest {
      */
     @Test
     void nextRequest() {
-        ShortestStrategy strategy = new ShortestStrategy(new ElevatorModel());
+        ElevatorRemake elevatorRemake = new ElevatorRemake(6, 3);
+        ShortestStrategy strategy = new ShortestStrategy(elevatorRemake.getModel());
         ArrayList<Request> listRequest = new ArrayList<>();
 
         assertNull(strategy.nextRequest(listRequest));
@@ -62,6 +64,6 @@ class ShortestStrategyTest {
 
 
         System.out.println("L'ascenceur ira a l'étage " + strategy.nextRequest(listRequest).getPosition());
-        assertEquals(strategy.nextRequest(listRequest), request4);
+        assertEquals(strategy.nextRequest(listRequest), request2);
     }
 }
