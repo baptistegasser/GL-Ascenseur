@@ -32,6 +32,7 @@ public class ControlCommandTest {
 
     /**
      * Vérification que la méthode stop fonctionne.
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     void stop() throws InterruptedException {
@@ -94,7 +95,7 @@ public class ControlCommandTest {
 
     /**
      * Test une simple monté de l'ascenseur
-     * @throws InterruptedException
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     public void actionGotoTest() throws InterruptedException {
@@ -112,7 +113,7 @@ public class ControlCommandTest {
 
     /**
      * Test un enchainement de monté et de descente
-     * @throws InterruptedException
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     public void actionGotoUpAndDownTest() throws InterruptedException {
@@ -148,6 +149,7 @@ public class ControlCommandTest {
 
     /***
      * Test une monté et une descente avec des arrêt intermédiaire
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     public void actionGotoWithIntermediateStopTest() throws InterruptedException {
@@ -227,6 +229,7 @@ public class ControlCommandTest {
 
     /***
      * Test avec plusieurs monté et descente et plusieurs arrêt intermédiaire
+     * @throws InterruptedException en cas d'interruption pendant le test
      */
     @Test
     public void actionBestTest() throws InterruptedException {

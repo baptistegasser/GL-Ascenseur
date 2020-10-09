@@ -36,6 +36,7 @@ class SimulatorRunnable implements Runnable {
 
     /**
      * @param timePerFloor nombre de seconde pour un étage
+     * @param model le modèle contenant les données de l'ascenseur simulé
      */
     public SimulatorRunnable(int timePerFloor, ElevatorModel model) {
         this.model = model;
