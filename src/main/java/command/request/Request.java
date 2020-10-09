@@ -5,11 +5,11 @@ import java.util.Comparator;
 /**
  * Cette classe modélise une requête utilisateur
  * avec un type (requête depuis l'extérieur de l'ascenseur, requite intérieure, requête d'arrêt d'urgence)
- * ainsi que la position cible pour l'ascenseur (-1 si arret d'urgence)
+ * ainsi que la position cible pour l'ascenseur (-1 si arrêt d'urgence)
  */
 public class Request implements Comparable<Request> {
     RequestType requestType;
-    double position; // -1 si arret d'urgence, sinon floor de destination
+    double position; // -1 si arrêt d'urgence, sinon floor de destination
 
     public Request(RequestType requestType, double floor) {
         this.requestType = requestType;

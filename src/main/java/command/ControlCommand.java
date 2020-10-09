@@ -4,7 +4,6 @@ import command.model.State;
 import command.request.Request;
 import command.request.RequestType;
 import simulator.ElevatorSimulator;
-import command.model.ElevatorModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +90,7 @@ public class ControlCommand {
     /***
      * Class permettant de gérer la liste de requêtes
      */
+    @SuppressWarnings("BusyWait")
     public class ActionRequest implements Runnable {
         private boolean flag = true;
         private ArrayList<Request> stopRequests;
