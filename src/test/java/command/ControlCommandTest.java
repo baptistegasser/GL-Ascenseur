@@ -87,4 +87,48 @@ public class ControlCommandTest {
         assertEquals(controlCommand.getListRequest().get(0), request);
         assertEquals(controlCommand.getListRequest().get(1), request1);
     }
+
+    @Test
+    public void actionGotoTest() throws InterruptedException {
+        Request request1 = new Request(RequestType.GO_TO, 4);
+
+        controlCommand.addRequest(request1);
+
+        controlCommand.start();
+        simulator.start();
+
+        Thread.sleep(13000);
+
+        assertEquals(simulator.getModel().getPosition(), 4);
+    }
+
+    @Test
+    public void actionGotoUpAndDownTest() throws InterruptedException {
+        Request request1 = new Request(RequestType.GO_TO, 2);
+        Request request2 = new Request(RequestType.GO_TO, 1);
+        Request request3 = new Request(RequestType.GO_TO, 0);
+
+        controlCommand.addRequest(request1);
+        controlCommand.addRequest(request2);
+
+        controlCommand.start();
+        simulator.start();
+
+        Thread.sleep(8000);
+        System.out.println("Fin sleep 1");
+        assertEquals(simulator.getModel().getPosition(), 2);
+        Thread.sleep(7000);
+        System.out.println("Fin sleep 2");
+        assertEquals(simulator.getModel().getPosition(), 1);
+
+        controlCommand.addRequest(request1);
+        controlCommand.addRequest(request3);
+
+        Thread.sleep(5000);
+        System.out.println("Fin sleep 3");
+        assertEquals(simulator.getModel().getPosition(), 2);
+        Thread.sleep(10000);
+        System.out.println("Fin sleep 4");
+        assertEquals(simulator.getModel().getPosition(), 0);
+    }
 }

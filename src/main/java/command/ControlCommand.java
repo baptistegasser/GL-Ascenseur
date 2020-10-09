@@ -44,13 +44,13 @@ public class ControlCommand {
     /**
      * Arrête le gestionnaire de requêtes.
      * Si au bout d'un cours délai le simulateur n'a pas quitté, son thread est interrompu.
-     *
+     * Pour une fermeture propre, attendre au 3s le temps que le thread soit en mode attente de requête
      * @throws InterruptedException en cas d'échec de l'attente
      */
     public void stop() throws InterruptedException {
         if (thread != null && action != null && action.flag) {
             action.flag = false;
-            Thread.sleep(500);
+            Thread.sleep(3000);
             if (thread.isAlive()) {
                 thread.interrupt();
             }
@@ -64,7 +64,7 @@ public class ControlCommand {
      * @param request Requête à ajouter
      */
     public void addRequest(Request request) {
-        System.out.println(request);
+        System.out.println("Nouvelle requête : "+request);
 
         if (request == null) return;
 
@@ -104,9 +104,8 @@ public class ControlCommand {
                 try {
                     //System.out.println(currentRequest);
                     if (currentRequest != null) {
-                        System.out.println("Current : "+ currentRequest);
+                        System.out.println("Requête courante : "+ currentRequest);
 
-                        System.out.println("GOTO");
                         if (model.getPosition() != currentRequest.getPosition()) {
                             if (model.getPosition() < currentRequest.getPosition()) {
                                 goToUp();
@@ -124,6 +123,7 @@ public class ControlCommand {
                     Thread.sleep(250);
 
                 }catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     e.printStackTrace();
                 }
             }
@@ -157,7 +157,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void moveToUp() throws InterruptedException {
-            System.out.println("Up");
+            System.out.println("EN MONTÉ");
 
             simulator.setState(State.MOVING_UP);
             //Attend que la cabine arrive pour l'arrêt aux prochain
@@ -199,7 +199,7 @@ public class ControlCommand {
          * @throws InterruptedException
          */
         public void moveToDown() throws InterruptedException {
-            System.out.println("Down");
+            System.out.println("EN DESCENTE");
             simulator.setState(State.MOVING_DOWN);
 
             while (simulator.getModel().getPosition()>currentRequest.getPosition()+1) {
